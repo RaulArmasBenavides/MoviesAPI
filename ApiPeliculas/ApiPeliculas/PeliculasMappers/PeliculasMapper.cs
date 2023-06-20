@@ -1,5 +1,5 @@
-﻿using ApiPeliculas.Modelos;
-using ApiPeliculas.Modelos.Dtos;
+﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Core.Entities;
 using AutoMapper;
 
 namespace ApiPeliculas.PeliculasMapper
@@ -11,6 +11,8 @@ namespace ApiPeliculas.PeliculasMapper
             CreateMap<Categoria, CategoriaDto>().ReverseMap();
             CreateMap<Categoria, CrearCategoriaDto>().ReverseMap();
             CreateMap<Pelicula, PeliculaDto>().ReverseMap();
+            CreateMap<AppUsuario, UsuarioDto>().ReverseMap();
+            CreateMap<AppUsuario, UsuarioDatosDto>().ReverseMap();
         }
     }
 }

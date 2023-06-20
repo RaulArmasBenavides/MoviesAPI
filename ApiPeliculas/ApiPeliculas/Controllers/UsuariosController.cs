@@ -1,11 +1,9 @@
-﻿using ApiPeliculas.Modelos;
-using ApiPeliculas.Modelos.Dtos;
+﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Core.Entities;
 using ApiPeliculas.Repositorio.IRepositorio;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using System.Net;
 
 namespace ApiPeliculas.Controllers
@@ -52,7 +50,7 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetUsuario(int usuarioId)
         {
-            var itemUsuario = _usRepo.GetUsuario(usuarioId);
+            var itemUsuario = _usRepo.GetUsuario(usuarioId.ToString());
 
             if (itemUsuario == null)
             {

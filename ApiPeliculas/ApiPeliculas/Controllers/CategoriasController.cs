@@ -1,5 +1,5 @@
-﻿using ApiPeliculas.Modelos;
-using ApiPeliculas.Modelos.Dtos;
+﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Core.Entities;
 using ApiPeliculas.Repositorio.IRepositorio;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPeliculas.Controllers
 {
-    
+
     [ApiController]
     //[Route("api/[controller]")]//Una opción
     [Route("api/categorias")]

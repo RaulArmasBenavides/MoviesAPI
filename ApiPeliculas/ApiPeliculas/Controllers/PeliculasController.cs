@@ -1,9 +1,7 @@
-﻿using ApiPeliculas.Modelos;
-using ApiPeliculas.Modelos.Dtos;
-using ApiPeliculas.Repositorio.IRepositorio;
+﻿using ApiMovies.Application.Interfaces;
+using ApiMovies.Core.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPeliculas.Controllers
@@ -12,12 +10,13 @@ namespace ApiPeliculas.Controllers
     [ApiController]
     public class PeliculasController : ControllerBase
     {
-        private readonly IPeliculaRepositorio _pelRepo;
+ 
+        private readonly IPeliculaService _pelService;
         private readonly IMapper _mapper;
 
-        public PeliculasController(IPeliculaRepositorio pelRepo, IMapper mapper)
+        public PeliculasController(IPeliculaService pelServ, IMapper mapper)
         {
-            _pelRepo = pelRepo;
+            _pelService = pelServ;
             _mapper = mapper;
         }
 

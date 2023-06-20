@@ -1,13 +1,12 @@
-using ApiPeliculas.Data;
-using ApiPeliculas.Repositorio;
-using ApiPeliculas.Repositorio.IRepositorio;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using ApiPeliculas.PeliculasMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using ApiMovies.Core.Entities;
+using ApiPeliculas.Infraestructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(opciones =>
 {
     opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql"));
 });
+
+//Soporte para autenticación con .NET Identity
+builder.Services.AddIdentity<AppUsuario, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 //Agregamos los repositorios
 builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
