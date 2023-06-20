@@ -1,4 +1,5 @@
-﻿using ApiMovies.Application.Interfaces;
+﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;

@@ -1,5 +1,6 @@
 ﻿using ApiMovies.Core.Entities;
 using ApiPeliculas.Infraestructure.Data;
+using ApiPeliculas.Infraestructure.Repositorio.IRepositorio;
 
 namespace ApiPeliculas.Repositorio
 {
