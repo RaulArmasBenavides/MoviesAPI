@@ -9,6 +9,7 @@ namespace ApiPeliculas.Infraestructure.Repositorio.IRepositorio
 
         AppUsuario GetUsuarioByUserName(string userName);
         bool IsUniqueUser(string usuario);
+   
         //Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto);
         ////Task<Usuario> Registro(UsuarioRegistroDto usuarioRegistroDto);
 

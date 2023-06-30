@@ -21,162 +21,162 @@ namespace ApiPeliculas.Controllers
             _mapper = mapper;
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetPeliculas()
-        {
-            var listaPeliculas = _pelRepo.GetPeliculas();
+        //[AllowAnonymous]
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public IActionResult GetPeliculas()
+        //{
+        //    var listaPeliculas = _pelRepo.GetPeliculas();
 
-            var listaPeliculasDto = new List<PeliculaDto>();
+        //    var listaPeliculasDto = new List<PeliculaDto>();
 
-            foreach (var lista in listaPeliculas)
-            {
-                listaPeliculasDto.Add(_mapper.Map<PeliculaDto>(lista));
-            }
-            return Ok(listaPeliculasDto);
-        }
+        //    foreach (var lista in listaPeliculas)
+        //    {
+        //        listaPeliculasDto.Add(_mapper.Map<PeliculaDto>(lista));
+        //    }
+        //    return Ok(listaPeliculasDto);
+        //}
 
-        [AllowAnonymous]
-        [HttpGet("{peliculaId:int}", Name = "GetPelicula")]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetPelicula(int peliculaId)
-        {
-            var itemPelicula = _pelRepo.GetPelicula(peliculaId);
+        //[AllowAnonymous]
+        //[HttpGet("{peliculaId:int}", Name = "GetPelicula")]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public IActionResult GetPelicula(int peliculaId)
+        //{
+        //    var itemPelicula = _pelRepo.GetPelicula(peliculaId);
 
-            if (itemPelicula == null)
-            {
-                return NotFound();
-            }
+        //    if (itemPelicula == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var itemPeliculaDto = _mapper.Map<PeliculaDto>(itemPelicula);
-            return Ok(itemPeliculaDto);
-        }
+        //    var itemPeliculaDto = _mapper.Map<PeliculaDto>(itemPelicula);
+        //    return Ok(itemPeliculaDto);
+        //}
 
-        [Authorize(Roles = "admin")]
-        [HttpPost]
-        [ProducesResponseType(201, Type = typeof(PeliculaDto))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult CrearPelicula([FromBody] PeliculaDto peliculaDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (peliculaDto == null)
-            {
-                return BadRequest(ModelState);
-            }
+        //[Authorize(Roles = "admin")]
+        //[HttpPost]
+        //[ProducesResponseType(201, Type = typeof(PeliculaDto))]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //public IActionResult CrearPelicula([FromBody] PeliculaDto peliculaDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    if (peliculaDto == null)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (_pelRepo.ExistePelicula(peliculaDto.Nombre))
-            {
-                ModelState.AddModelError("", "La película ya existe");
-                return StatusCode(404, ModelState);
-            }
+        //    if (_pelRepo.ExistePelicula(peliculaDto.Nombre))
+        //    {
+        //        ModelState.AddModelError("", "La película ya existe");
+        //        return StatusCode(404, ModelState);
+        //    }
 
-            var pelicula = _mapper.Map<Pelicula>(peliculaDto);
+        //    var pelicula = _mapper.Map<Pelicula>(peliculaDto);
 
-            if (!_pelRepo.CrearPelicula(pelicula))
-            {
-                ModelState.AddModelError("", $"Algo salió mal guardando el registro{pelicula.Nombre}");
-                return StatusCode(500, ModelState);
-            }
-            return CreatedAtRoute("GetPelicula", new { peliculaId = pelicula.Id }, pelicula);
-        }
+        //    if (!_pelRepo.CrearPelicula(pelicula))
+        //    {
+        //        ModelState.AddModelError("", $"Algo salió mal guardando el registro{pelicula.Nombre}");
+        //        return StatusCode(500, ModelState);
+        //    }
+        //    return CreatedAtRoute("GetPelicula", new { peliculaId = pelicula.Id }, pelicula);
+        //}
 
-        [Authorize(Roles = "admin")]
-        [HttpPatch("{peliculaId:int}", Name = "ActualizarPatchPelicula")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult ActualizarPatchPelicula(int peliculaId, [FromBody] PeliculaDto peliculaDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }            
+        //[Authorize(Roles = "admin")]
+        //[HttpPatch("{peliculaId:int}", Name = "ActualizarPatchPelicula")]
+        //[ProducesResponseType(204)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //public IActionResult ActualizarPatchPelicula(int peliculaId, [FromBody] PeliculaDto peliculaDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }            
 
-            var pelicula = _mapper.Map<Pelicula>(peliculaDto);
+        //    var pelicula = _mapper.Map<Pelicula>(peliculaDto);
 
-            if (!_pelRepo.ActualizarPelicula(pelicula))
-            {
-                ModelState.AddModelError("", $"Algo salió mal actualizando el registro{pelicula.Nombre}");
-                return StatusCode(500, ModelState);
-            }
-            return NoContent();
-        }
+        //    if (!_pelRepo.ActualizarPelicula(pelicula))
+        //    {
+        //        ModelState.AddModelError("", $"Algo salió mal actualizando el registro{pelicula.Nombre}");
+        //        return StatusCode(500, ModelState);
+        //    }
+        //    return NoContent();
+        //}
 
-        [Authorize(Roles = "admin")]
-        [HttpDelete("{peliculaId:int}", Name = "BorrarPelicula")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult BorrarPelicula(int peliculaId)
-        {
-            if (!_pelRepo.ExistePelicula(peliculaId))
-            {
-                return NotFound();
-            }
+        //[Authorize(Roles = "admin")]
+        //[HttpDelete("{peliculaId:int}", Name = "BorrarPelicula")]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //public IActionResult BorrarPelicula(int peliculaId)
+        //{
+        //    if (!_pelRepo.ExistePelicula(peliculaId))
+        //    {
+        //        return NotFound();
+        //    }
 
-            var pelicula = _pelRepo.GetPelicula(peliculaId);
+        //    var pelicula = _pelRepo.GetPelicula(peliculaId);
 
-            if (!_pelRepo.BorrarPelicula(pelicula))
-            {
-                ModelState.AddModelError("", $"Algo salió mal borrando el registro{pelicula.Nombre}");
-                return StatusCode(500, ModelState);
-            }
-            return NoContent();
-        }
+        //    if (!_pelRepo.BorrarPelicula(pelicula))
+        //    {
+        //        ModelState.AddModelError("", $"Algo salió mal borrando el registro{pelicula.Nombre}");
+        //        return StatusCode(500, ModelState);
+        //    }
+        //    return NoContent();
+        //}
 
-        [AllowAnonymous]
-        [HttpGet("GetPeliculasEnCategoria/{categoriaId:int}")]      
-        public IActionResult GetPeliculasEnCategoria(int categoriaId)
-        {
-            var listaPeliculas = _pelRepo.GetPeliculasEnCategoria(categoriaId);
+        //[AllowAnonymous]
+        //[HttpGet("GetPeliculasEnCategoria/{categoriaId:int}")]      
+        //public IActionResult GetPeliculasEnCategoria(int categoriaId)
+        //{
+        //    var listaPeliculas = _pelRepo.GetPeliculasEnCategoria(categoriaId);
 
-            if (listaPeliculas == null)
-            {
-                return NotFound();
-            }
+        //    if (listaPeliculas == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var itemPelicula = new List<PeliculaDto>();
+        //    var itemPelicula = new List<PeliculaDto>();
 
-            foreach (var item in listaPeliculas)
-            {
-                itemPelicula.Add(_mapper.Map<PeliculaDto>(item));
-            }
-            return Ok(itemPelicula);
-        }
+        //    foreach (var item in listaPeliculas)
+        //    {
+        //        itemPelicula.Add(_mapper.Map<PeliculaDto>(item));
+        //    }
+        //    return Ok(itemPelicula);
+        //}
 
-        [AllowAnonymous]
-        [HttpGet("Buscar")]
-        public IActionResult Buscar(string nombre)
-        {
-            try
-            {
-                var resultado = _pelRepo.BuscarPelicula(nombre.Trim());
-                if (resultado.Any())
-                {
-                    return Ok(resultado);
-                }
+        //[AllowAnonymous]
+        //[HttpGet("Buscar")]
+        //public IActionResult Buscar(string nombre)
+        //{
+        //    try
+        //    {
+        //        var resultado = _pelRepo.BuscarPelicula(nombre.Trim());
+        //        if (resultado.Any())
+        //        {
+        //            return Ok(resultado);
+        //        }
 
-                return NotFound();
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error recuperando datos");
-            }
-        }
+        //        return NotFound();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error recuperando datos");
+        //    }
+        //}
     }
 }

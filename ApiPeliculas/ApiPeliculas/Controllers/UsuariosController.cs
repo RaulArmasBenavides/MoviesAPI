@@ -1,6 +1,6 @@
 ﻿using ApiMovies.Application.Dtos;
 using ApiMovies.Core.Entities;
-using ApiPeliculas.Repositorio.IRepositorio;
+using ApiPeliculas.Infraestructure.Repositorio.IRepositorio;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -68,26 +68,26 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Registro([FromBody] UsuarioRegistroDto usuarioRegistroDto)
         {
-            bool validarNombreUsuarioUnico = _usRepo.IsUniqueUser(usuarioRegistroDto.NombreUsuario);
-            if (!validarNombreUsuarioUnico)
-            {
-                _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
-                _respuestaApi.IsSuccess = false;
-                _respuestaApi.ErrorMessages.Add("El nombre de usuario ya existe");
-                return BadRequest(_respuestaApi);
-            }
+            //bool validarNombreUsuarioUnico = _usRepo.IsUniqueUser(usuarioRegistroDto.NombreUsuario);
+            //if (!validarNombreUsuarioUnico)
+            //{
+            //    _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
+            //    _respuestaApi.IsSuccess = false;
+            //    _respuestaApi.ErrorMessages.Add("El nombre de usuario ya existe");
+            //    return BadRequest(_respuestaApi);
+            //}
 
-            var usuario = await _usRepo.Registro(usuarioRegistroDto);
-            if (usuario == null)
-            {
-                _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
-                _respuestaApi.IsSuccess = false;
-                _respuestaApi.ErrorMessages.Add("Error en el registro");
-                return BadRequest(_respuestaApi);
-            }
+            //var usuario = await _usRepo.Registro(usuarioRegistroDto);
+            //if (usuario == null)
+            //{
+            //    _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
+            //    _respuestaApi.IsSuccess = false;
+            //    _respuestaApi.ErrorMessages.Add("Error en el registro");
+            //    return BadRequest(_respuestaApi);
+            //}
 
-            _respuestaApi.StatusCode = HttpStatusCode.OK;
-            _respuestaApi.IsSuccess = true;         
+            //_respuestaApi.StatusCode = HttpStatusCode.OK;
+            //_respuestaApi.IsSuccess = true;         
             return Ok(_respuestaApi);
         }
 
@@ -98,19 +98,19 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] UsuarioLoginDto usuarioLoginDto)
         {
-            var respuestaLogin = await _usRepo.Login(usuarioLoginDto);
+            //var respuestaLogin = await _usRepo.Login(usuarioLoginDto);
             
-            if (respuestaLogin.Usuario == null || string.IsNullOrEmpty(respuestaLogin.Token))
-            {
-                _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
-                _respuestaApi.IsSuccess = false;
-                _respuestaApi.ErrorMessages.Add("El nombre de usuario o password son incorrectos");
-                return BadRequest(_respuestaApi);
-            }           
+            //if (respuestaLogin.Usuario == null || string.IsNullOrEmpty(respuestaLogin.Token))
+            //{
+            //    _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
+            //    _respuestaApi.IsSuccess = false;
+            //    _respuestaApi.ErrorMessages.Add("El nombre de usuario o password son incorrectos");
+            //    return BadRequest(_respuestaApi);
+            //}           
 
-            _respuestaApi.StatusCode = HttpStatusCode.OK;
-            _respuestaApi.IsSuccess = true;
-            _respuestaApi.Result = respuestaLogin;
+            //_respuestaApi.StatusCode = HttpStatusCode.OK;
+            //_respuestaApi.IsSuccess = true;
+            //_respuestaApi.Result = respuestaLogin;
             return Ok(_respuestaApi);
         }
 

@@ -23,7 +23,7 @@ namespace ApiPeliculas.Repositorio
         public UsuarioRepositorio(ApplicationDbContext bd, IConfiguration config)
         {
             _bd = bd;
-            claveSecreta = config.GetValue<string>("ApiSettings:Secreta");
+            claveSecreta = "";//config.GetValue<string>("ApiSettings:Secreta");
             //_userManager = userManager;
             //_roleManager = roleManager;
         }

@@ -51,7 +51,7 @@ namespace ApiMovies.Application.Services
             //Aquí existe el usuario entonces podemos procesar el login
             var roles = await _userManager.GetRolesAsync(usuario);
             var manejadorToken = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(claveSecreta);
+            var key = Encoding.ASCII.GetBytes("");//lcave secert
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

@@ -1,6 +1,6 @@
 ﻿using ApiMovies.Application.Dtos;
 using ApiMovies.Core.Entities;
-using ApiPeliculas.Repositorio.IRepositorio;
+using ApiPeliculas.Infraestructure.Repositorio.IRepositorio;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

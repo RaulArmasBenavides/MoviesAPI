@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using ApiMovies.Core.Entities;
 using ApiPeliculas.Infraestructure.Data;
+using ApiPeliculas.Repositorio;
+using ApiPeliculas.Infraestructure.Repositorio.IRepositorio;
 
 var builder = WebApplication.CreateBuilder(args);
 

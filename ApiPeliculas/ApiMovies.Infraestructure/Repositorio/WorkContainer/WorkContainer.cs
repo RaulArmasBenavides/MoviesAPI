@@ -14,11 +14,11 @@ namespace ApiMovies.Infraestructure.Repositorio.WorkContainer
     public class WorkContainer : IWorkContainer
     {
         private readonly ApplicationDbContext _db;
-        public WorkContainer() {
+        public WorkContainer( ApplicationDbContext db) {
             _db = db;
             Categorias = new CategoriaRepositorio(_db);
             Peliculas = new PeliculaRepositorio(_db);
-            Usuarios = new UsuarioRepositorio(_db);
+            Usuarios = new UsuarioRepositorio(_db,null);
         }
         public ICategoriaRepositorio Categorias { get; private set; }
         public IPeliculaRepositorio Peliculas { get; private set; }
