@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApiMovies.Core.Entities;
 
 namespace ApiMovies.Application.Services
 {
@@ -24,6 +25,12 @@ namespace ApiMovies.Application.Services
         public IEnumerable<object> GetAllReque()
         {
             return _contenedorTrabajo.Peliculas.GetPeliculas();
+        }
+
+        public async Task ActualizarPeliculaAsync(Pelicula pel)
+        {
+            _contenedorTrabajo.Peliculas.Update(pel);
+            await _contenedorTrabajo.SaveChangesAsync();
         }
     }
 }

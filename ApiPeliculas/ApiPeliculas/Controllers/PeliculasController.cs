@@ -92,28 +92,28 @@ namespace ApiPeliculas.Controllers
         //    return CreatedAtRoute("GetPelicula", new { peliculaId = pelicula.Id }, pelicula);
         //}
 
-        //[Authorize(Roles = "admin")]
-        //[HttpPatch("{peliculaId:int}", Name = "ActualizarPatchPelicula")]
-        //[ProducesResponseType(204)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //public IActionResult ActualizarPatchPelicula(int peliculaId, [FromBody] PeliculaDto peliculaDto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }            
+        [Authorize(Roles = "admin")]
+        [HttpPatch("{peliculaId:int}", Name = "ActualizarPatchPelicula")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult ActualizarPatchPelicula(int peliculaId, [FromBody] PeliculaDto peliculaDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    var pelicula = _mapper.Map<Pelicula>(peliculaDto);
+            var pelicula = _mapper.Map<Pelicula>(peliculaDto);
 
-        //    if (!_pelRepo.ActualizarPelicula(pelicula))
-        //    {
-        //        ModelState.AddModelError("", $"Algo salió mal actualizando el registro{pelicula.Nombre}");
-        //        return StatusCode(500, ModelState);
-        //    }
-        //    return NoContent();
-        //}
+            if (!_pelService.ActualizarPeliculaAsync(pelicula))
+            {
+                ModelState.AddModelError("", $"Algo salió mal actualizando el registro{pelicula.Nombre}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
 
         //[Authorize(Roles = "admin")]
         //[HttpDelete("{peliculaId:int}", Name = "BorrarPelicula")]

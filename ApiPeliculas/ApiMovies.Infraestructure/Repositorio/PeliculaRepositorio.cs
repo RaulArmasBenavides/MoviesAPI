@@ -1,25 +1,27 @@
 ﻿using ApiMovies.Core.Entities;
 using ApiMovies.Infraestructure.Data;
+using ApiMovies.Infraestructure.Repositorio;
 using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace ApiMovies.Repositorio
 {
-    public class PeliculaRepositorio : IPeliculaRepositorio
+    public class PeliculaRepositorio : Repository<Pelicula>, IPeliculaRepositorio
     {
         private readonly ApplicationDbContext _bd;
 
-        public PeliculaRepositorio(ApplicationDbContext bd)
+        public PeliculaRepositorio(ApplicationDbContext bd) : base(bd)
         {
             _bd = bd;
         }
 
-        public bool ActualizarPelicula(Pelicula pelicula)
-        {
-            pelicula.FechaCreacion = DateTime.Now;
-            _bd.Pelicula.Update(pelicula);
-            return Guardar();
-        }
+        //public bool ActualizarPelicula(Pelicula pelicula)
+        //{
+        //    pelicula.FechaCreacion = DateTime.Now;
+        //    _bd.Pelicula.Update(pelicula);
+        //    return Guardar();
+        //}
 
         public bool BorrarPelicula(Pelicula pelicula)
         {

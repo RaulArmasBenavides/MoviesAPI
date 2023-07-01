@@ -17,14 +17,14 @@ namespace ApiMovies.Infraestructure.Repositorio.WorkContainer
         public IPeliculaRepositorio Peliculas { get; private set; }
         public IUsuarioRepositorio Usuarios { get; private set; }
 
-        void IWorkContainer.Save()
+        public void Save()
         {
-            throw new NotImplementedException();
+            _db.SaveChanges();
         }
 
-        Task<int> IWorkContainer.SaveChangesAsync()
+        public Task<int>  SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            return _db.SaveChangesAsync();
         }
     }
 }
