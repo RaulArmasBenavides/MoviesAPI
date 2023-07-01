@@ -1,6 +1,6 @@
 ﻿using ApiMovies.Core.Entities;
 
-namespace ApiPeliculas.Infraestructure.Repositorio.IRepositorio
+namespace ApiMovies.Infraestructure.Repositorio.IRepositorio
 {
     public interface IUsuarioRepositorio
     {

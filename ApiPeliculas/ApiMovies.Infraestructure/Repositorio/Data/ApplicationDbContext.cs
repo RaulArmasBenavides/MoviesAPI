@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiPeliculas.Infraestructure.Data
+namespace ApiMovies.Infraestructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext<AppUsuario>
     {

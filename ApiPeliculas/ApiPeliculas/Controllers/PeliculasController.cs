@@ -21,22 +21,22 @@ namespace ApiPeliculas.Controllers
             _mapper = mapper;
         }
 
-        //[AllowAnonymous]
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public IActionResult GetPeliculas()
-        //{
-        //    var listaPeliculas = _pelRepo.GetPeliculas();
+        [AllowAnonymous]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetPeliculas()
+        {
+            var listaPeliculas = _pelService.GetAllReque();
 
-        //    var listaPeliculasDto = new List<PeliculaDto>();
+            var listaPeliculasDto = new List<PeliculaDto>();
 
-        //    foreach (var lista in listaPeliculas)
-        //    {
-        //        listaPeliculasDto.Add(_mapper.Map<PeliculaDto>(lista));
-        //    }
-        //    return Ok(listaPeliculasDto);
-        //}
+            foreach (var lista in listaPeliculas)
+            {
+                listaPeliculasDto.Add(_mapper.Map<PeliculaDto>(lista));
+            }
+            return Ok(listaPeliculasDto);
+        }
 
         //[AllowAnonymous]
         //[HttpGet("{peliculaId:int}", Name = "GetPelicula")]

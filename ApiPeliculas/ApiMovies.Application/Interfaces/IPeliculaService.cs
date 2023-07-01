@@ -8,5 +8,6 @@ namespace ApiMovies.Application.Interfaces
 {
     public interface IPeliculaService
     {
+        IEnumerable<object> GetAllReque();
     }
 }

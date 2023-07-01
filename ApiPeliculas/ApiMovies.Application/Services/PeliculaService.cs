@@ -1,5 +1,7 @@
 ﻿using ApiMovies.Application.Interfaces;
-using ApiPeliculas.Infraestructure.Repositorio.IRepositorio;
+using ApiMovies.Infraestructure.Repositorio.WorkContainer;
+using ApiMovies.Infraestructure.Repositorio.IRepositorio;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,18 @@ namespace ApiMovies.Application.Services
 {
     public class PeliculaService : IPeliculaService
     {
-        IPeliculaRepositorio Ipelrep;
+        private readonly IWorkContainer _contenedorTrabajo;
+        private readonly IMapper _mapper;
 
+        public PeliculaService(IWorkContainer unitOfWork, IMapper mapper)
+        {
+            _contenedorTrabajo = unitOfWork;
+            _mapper = mapper;
+        }
+
+        public IEnumerable<object> GetAllReque()
+        {
+            return _contenedorTrabajo.Peliculas.GetPeliculas();
+        }
     }
 }

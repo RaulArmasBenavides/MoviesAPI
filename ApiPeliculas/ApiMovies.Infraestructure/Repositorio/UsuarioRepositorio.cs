@@ -8,11 +8,11 @@ using System.Text;
 //using XAct.Users;
 //using XSystem.Security.Cryptography;
 using ApiMovies.Core.Entities;
-using ApiPeliculas.Infraestructure.Data;
-using ApiPeliculas.Infraestructure.Repositorio.IRepositorio;
+using ApiMovies.Infraestructure.Data;
+using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 using Microsoft.Extensions.Configuration;
 
-namespace ApiPeliculas.Repositorio
+namespace ApiMovies.Repositorio
 {
     public class UsuarioRepositorio : IUsuarioRepositorio
     {

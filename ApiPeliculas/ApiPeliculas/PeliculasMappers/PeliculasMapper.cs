@@ -2,7 +2,7 @@
 using ApiMovies.Core.Entities;
 using AutoMapper;
 
-namespace ApiPeliculas.PeliculasMapper
+namespace ApiMovies.PeliculasMapper
 {
     public class PeliculasMapper : Profile
     {
