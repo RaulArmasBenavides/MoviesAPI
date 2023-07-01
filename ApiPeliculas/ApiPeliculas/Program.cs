@@ -9,6 +9,8 @@ using ApiMovies.Repositorio;
 using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 using ApiMovies.Infraestructure.Data;
 using ApiMovies.Infraestructure;
+using ApiMovies.Application.Interfaces;
+using ApiMovies.Application.Services;
 
 public class Program
 {
@@ -25,6 +27,8 @@ public class Program
         builder.Services.AddIdentity<AppUsuario, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
         //Agregamos los repositorios
+        builder.Services.AddScoped<IPeliculaService, PeliculaService>();
+        builder.Services.AddScoped<IUsuarioService, UsuarioService>();
         builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
         builder.Services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
         builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
@@ -34,8 +38,6 @@ public class Program
         //Agregar el AutoMapper
         builder.Services.AddAutoMapper(typeof(PeliculasMapper));
 
-
-        //Aquí se configura la Autenciación
         builder.Services.AddAuthentication(x =>
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
