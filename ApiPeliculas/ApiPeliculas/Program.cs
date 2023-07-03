@@ -11,6 +11,7 @@ using ApiMovies.Infraestructure.Data;
 using ApiMovies.Infraestructure;
 using ApiMovies.Application.Interfaces;
 using ApiMovies.Application.Services;
+using Serilog;
 
 public class Program
 {
@@ -33,6 +34,8 @@ public class Program
         builder.Services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
         builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
         builder.Services.AddPersistence(builder.Configuration);
+        builder.Host.UseSerilog((context, configuration) =>
+        configuration.ReadFrom.Configuration(context.Configuration));
         var key = builder.Configuration.GetValue<string>("ApiSettings:Secreta");
 
         //Agregar el AutoMapper
@@ -114,7 +117,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
+        app.UseSerilogRequestLogging();
         //Soporte para CORS
         app.UseCors("PolicyCors");
         app.UseAuthentication();

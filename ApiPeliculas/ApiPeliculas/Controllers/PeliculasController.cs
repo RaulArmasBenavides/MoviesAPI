@@ -14,11 +14,13 @@ namespace ApiPeliculas.Controllers
  
         private readonly IPeliculaService _pelService;
         private readonly IMapper _mapper;
+        private readonly Serilog.ILogger _logger;
 
-        public PeliculasController(IPeliculaService pelServ, IMapper mapper)
+        public PeliculasController(IPeliculaService pelServ, IMapper mapper, Serilog.ILogger logger)
         {
             _pelService = pelServ;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [AllowAnonymous]
@@ -27,6 +29,7 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetPeliculas()
         {
+            _logger.Information("test");
             var listaPeliculas = _pelService.GetAllReque();
 
             var listaPeliculasDto = new List<PeliculaDto>();
@@ -107,11 +110,7 @@ namespace ApiPeliculas.Controllers
 
             var pelicula = _mapper.Map<Pelicula>(peliculaDto);
 
-            if (!_pelService.ActualizarPeliculaAsync(pelicula))
-            {
-                ModelState.AddModelError("", $"Algo salió mal actualizando el registro{pelicula.Nombre}");
-                return StatusCode(500, ModelState);
-            }
+            _pelService.ActualizarPeliculaAsync(pelicula);
             return NoContent();
         }
 
