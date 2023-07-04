@@ -1,4 +1,5 @@
 ﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 using AutoMapper;
@@ -12,15 +13,19 @@ namespace ApiPeliculas.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private readonly IUsuarioRepositorio _usRepo;
+        private readonly IUsuarioService _usService;
         protected RespuestAPI _respuestaApi;
+        private IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public UsuariosController(IUsuarioRepositorio usRepo, IMapper mapper)
+        public UsuariosController(IUsuarioService usservice, IMapper mapper,IConfiguration config)
         {
-            _usRepo = usRepo;
+            _usService = usservice;
             this._respuestaApi = new();
             _mapper = mapper;
+            _config=config;
+
+
         }
 
         [Authorize(Roles = "admin")]
@@ -30,7 +35,7 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetUsuarios()
         {
-            var listaUsuarios = _usRepo.GetUsuarios();
+            var listaUsuarios = _usService.GetUsuarios();
 
             var listaUsuariosDto = new List<UsuarioDto>();
 
@@ -50,7 +55,7 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetUsuario(int usuarioId)
         {
-            var itemUsuario = _usRepo.GetUsuario(usuarioId.ToString());
+            var itemUsuario = _usService.GetUsuario(usuarioId.ToString());
 
             if (itemUsuario == null)
             {
@@ -68,6 +73,8 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Registro([FromBody] UsuarioRegistroDto usuarioRegistroDto)
         {
+
+            var rptaservice= await _usService.Registro(usuarioRegistroDto);
             //bool validarNombreUsuarioUnico = _usRepo.IsUniqueUser(usuarioRegistroDto.NombreUsuario);
             //if (!validarNombreUsuarioUnico)
             //{
@@ -88,7 +95,7 @@ namespace ApiPeliculas.Controllers
 
             //_respuestaApi.StatusCode = HttpStatusCode.OK;
             //_respuestaApi.IsSuccess = true;         
-            return Ok(_respuestaApi);
+            return Ok(rptaservice);
         }
 
         [AllowAnonymous]
@@ -98,8 +105,11 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] UsuarioLoginDto usuarioLoginDto)
         {
-            //var respuestaLogin = await _usRepo.Login(usuarioLoginDto);
+
             
+            var rptaservice = await _usService.Login(usuarioLoginDto, _config.GetValue<string>("ApiSettings:Secreta"));
+            //var respuestaLogin = await _usRepo.Login(usuarioLoginDto);
+
             //if (respuestaLogin.Usuario == null || string.IsNullOrEmpty(respuestaLogin.Token))
             //{
             //    _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
@@ -111,7 +121,7 @@ namespace ApiPeliculas.Controllers
             //_respuestaApi.StatusCode = HttpStatusCode.OK;
             //_respuestaApi.IsSuccess = true;
             //_respuestaApi.Result = respuestaLogin;
-            return Ok(_respuestaApi);
+            return Ok(rptaservice);
         }
 
     }

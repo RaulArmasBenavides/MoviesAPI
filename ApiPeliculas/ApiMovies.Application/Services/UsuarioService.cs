@@ -4,6 +4,7 @@ using ApiMovies.Core.Entities;
 using ApiMovies.Infraestructure.Repositorio.WorkContainer;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -20,22 +21,22 @@ namespace ApiMovies.Application.Services
         private readonly IMapper _mapper;
         private readonly UserManager<AppUsuario> _userManager;
         private readonly IWorkContainer _contenedorTrabajo;
+        private IConfiguration _config;
 
         private readonly RoleManager<IdentityRole> _roleManager;
-        public UsuarioService(IWorkContainer unitOfWork, UserManager<AppUsuario> userManager, IMapper mapper , RoleManager<IdentityRole> roleManager)
+        public UsuarioService(IWorkContainer unitOfWork, IConfiguration config, UserManager<AppUsuario> userManager, IMapper mapper , RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+
             _mapper = mapper;
             _contenedorTrabajo = unitOfWork;
             _userManager = userManager;
+            _config = config;
             _roleManager = roleManager;
         }
 
-        public async Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto)
+        public async Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto, string SecretKey)
         {
-            //Encriptar password a md5  antes de enviar la consulta
-            //var passwordEncriptado = obtenermd5(usuarioLoginDto.Password);
-            //var usuario = _bd.AppUsuario.FirstOrDefault(u => u.UserName.ToLower() == usuarioLoginDto.NombreUsuario.ToLower());
             var usuario = _contenedorTrabajo.Usuarios.GetUsuarioByUserName(usuarioLoginDto.NombreUsuario.ToLower());
             bool isValid = await _userManager.CheckPasswordAsync(usuario, usuarioLoginDto.Password);
             //Validamos si el usuario no existe con la combinación de usuario y contraseña correcta
@@ -51,7 +52,9 @@ namespace ApiMovies.Application.Services
             //Aquí existe el usuario entonces podemos procesar el login
             var roles = await _userManager.GetRolesAsync(usuario);
             var manejadorToken = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("");//lcave secert
+
+           
+            var key = Encoding.ASCII.GetBytes(SecretKey); 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -73,7 +76,6 @@ namespace ApiMovies.Application.Services
         }
         public async Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto)
         {
-            //var passwordEncriptado = obtenermd5(usuarioRegistroDto.Password);
             AppUsuario usuario = new AppUsuario()
             {
                 UserName = usuarioRegistroDto.NombreUsuario,
@@ -90,22 +92,20 @@ namespace ApiMovies.Application.Services
                     await _roleManager.CreateAsync(new IdentityRole("registrado"));
                 }
                 await _userManager.AddToRoleAsync(usuario, "admin");
-                //var usuarioRetornado = _bd.AppUsuario.FirstOrDefault(u => u.UserName == usuarioRegistroDto.NombreUsuario);
                 var usuarioRetornado = _contenedorTrabajo.Usuarios.GetUsuarioByUserName(usuarioRegistroDto.NombreUsuario);
-                //_contenedorTrabajo.Usuarios.GetUsuario()
-                //Opción 1
-                //return new UsuarioDatosDto()
-                //{
-                //    ID = usuarioRetornado.Id,
-                //    Username = usuarioRetornado.UserName,
-                //    Nombre = usuarioRetornado.Nombre
-                //};
                 return _mapper.Map<UsuarioDatosDto>(usuarioRetornado);
             }
-            //_bd.Usuario.Add(usuario);
-            //await _bd.SaveChangesAsync();
-            //usuario.Password = passwordEncriptado;
             return new UsuarioDatosDto();
+        }
+
+        public  ICollection<AppUsuario> GetUsuarios()
+        {
+            return _contenedorTrabajo.Usuarios.GetUsuarios();
+        }
+
+        public AppUsuario GetUsuario(string id)
+        {
+            return _contenedorTrabajo.Usuarios.GetUsuario(id);
         }
     }
 }

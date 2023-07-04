@@ -56,8 +56,7 @@ namespace ApiMovies.Repositorio
     
 
 
-
-
+      
         //Método para encriptar contraseña con MD5 se usa tanto en el Acceso como en el Registro
         //public static string obtenermd5(string valor)
         //{
