@@ -9,8 +9,12 @@ namespace ApiMovies.Application.Interfaces
 {
     public interface IPeliculaService
     {
-        IEnumerable<object> GetAllReque();
+        Task CreateMovieAsync(Pelicula pel);
+        Task UpdateMovieAsync(Pelicula pel);
 
-        Task ActualizarPeliculaAsync(Pelicula pel);
+        Task DeleteMovieAsync(int id);
+
+        IEnumerable<object> GetAllReque();
+        Pelicula GetPelicula(int id);
     }
 }

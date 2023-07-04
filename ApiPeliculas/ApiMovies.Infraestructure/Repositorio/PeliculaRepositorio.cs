@@ -15,20 +15,6 @@ namespace ApiMovies.Repositorio
         {
             _bd = bd;
         }
-
-        //public bool ActualizarPelicula(Pelicula pelicula)
-        //{
-        //    pelicula.FechaCreacion = DateTime.Now;
-        //    _bd.Pelicula.Update(pelicula);
-        //    return Guardar();
-        //}
-
-        public bool BorrarPelicula(Pelicula pelicula)
-        {
-            _bd.Pelicula.Remove(pelicula);
-            return Guardar();
-        }
-
         public ICollection<Pelicula> BuscarPelicula(string nombre)
         {
             IQueryable<Pelicula> query = _bd.Pelicula;

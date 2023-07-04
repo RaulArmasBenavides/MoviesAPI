@@ -22,15 +22,35 @@ namespace ApiMovies.Application.Services
             _mapper = mapper;
         }
 
+        public async Task CreateMovieAsync(Pelicula pel)
+        {
+          _contenedorTrabajo.Peliculas.Add(pel);
+            await _contenedorTrabajo.SaveChangesAsync();
+        }
+
+        public async Task UpdateMovieAsync(Pelicula pel)
+        {
+            _contenedorTrabajo.Peliculas.Update(pel);
+            await _contenedorTrabajo.SaveChangesAsync();
+        }
+
+        public async Task DeleteMovieAsync(int id)
+        {
+            _contenedorTrabajo.Peliculas.Remove(id);
+            await _contenedorTrabajo.SaveChangesAsync();
+        }
+
         public IEnumerable<object> GetAllReque()
         {
             return _contenedorTrabajo.Peliculas.GetPeliculas();
         }
 
-        public async Task ActualizarPeliculaAsync(Pelicula pel)
-        {
-            _contenedorTrabajo.Peliculas.Update(pel);
-            await _contenedorTrabajo.SaveChangesAsync();
+
+        public Pelicula GetPelicula(int id) 
+        { 
+            return _contenedorTrabajo.Peliculas.Get(id);
         }
+
+
     }
 }

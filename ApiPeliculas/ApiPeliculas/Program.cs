@@ -18,15 +18,8 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        //Configuramos la conexion a sql server
-        //builder.Services.AddDbContext<ApplicationDbContext>(opciones =>
-        //{
-        //    opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql"));
-        //});
-
         //Soporte para autenticación con .NET Identity
         builder.Services.AddIdentity<AppUsuario, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-
         //Agregamos los repositorios
         builder.Services.AddScoped<IPeliculaService, PeliculaService>();
         builder.Services.AddScoped<IUsuarioService, UsuarioService>();
@@ -37,10 +30,8 @@ public class Program
         builder.Host.UseSerilog((context, configuration) =>
         configuration.ReadFrom.Configuration(context.Configuration));
         var key = builder.Configuration.GetValue<string>("ApiSettings:Secreta");
-
         //Agregar el AutoMapper
         builder.Services.AddAutoMapper(typeof(PeliculasMapper));
-
         builder.Services.AddAuthentication(x =>
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -57,13 +48,8 @@ public class Program
                 ValidateAudience = false
             };
         });
-
-
-        // Add services to the container.
-
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
         {
@@ -95,8 +81,6 @@ public class Program
         }
     });
         });
-
-
         //Soporte para CORS
         //Se pueden habilitar: 1-Un dominio, 2-multiples dominios,
         //3-cualquier dominio (Tener en cuenta seguridad)
