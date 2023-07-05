@@ -24,8 +24,6 @@ namespace ApiPeliculas.Controllers
             this._respuestaApi = new();
             _mapper = mapper;
             _config=config;
-
-
         }
 
         [Authorize(Roles = "admin")]

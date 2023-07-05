@@ -2,7 +2,7 @@
 
 namespace ApiMovies.Infraestructure.Repositorio.IRepositorio
 {
-    public interface ICategoriaRepositorio
+    public interface ICategoriaRepositorio : IRepository<Categoria>
     {
         ICollection<Categoria> GetCategorias();
         Categoria GetCategoria(int categorId);

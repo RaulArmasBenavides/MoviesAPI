@@ -1,14 +1,15 @@
 ﻿using ApiMovies.Core.Entities;
 using ApiMovies.Infraestructure.Data;
+using ApiMovies.Infraestructure.Repositorio;
 using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 
 namespace ApiMovies.Repositorio
 {
-    public class CategoriaRepositorio : ICategoriaRepositorio
+    public class CategoriaRepositorio : Repository<Categoria>, ICategoriaRepositorio
     {
         private readonly ApplicationDbContext _bd;
 
-        public CategoriaRepositorio(ApplicationDbContext bd)
+        public CategoriaRepositorio(ApplicationDbContext bd) : base(bd)
         {
             _bd = bd;
         }
