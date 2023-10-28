@@ -26,6 +26,15 @@ namespace ApiPeliculas.Controllers
             _config=config;
         }
 
+
+        [AllowAnonymous]
+        [HttpGet("check-protocol")]
+        public IActionResult CheckProtocol()
+        {
+            return Ok($"Protocol used: {HttpContext.Request.Protocol}");
+        }
+
+
         [Authorize(Roles = "admin")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
