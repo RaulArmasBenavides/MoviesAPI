@@ -12,13 +12,18 @@ namespace ApiPeliculas.Controllers
     public class PeliculasController : ControllerBase
     {
         private readonly IPeliculaService _pelService;
+        private readonly IWebHostEnvironment _environment;
         private readonly IMapper _mapper;
         private readonly Serilog.ILogger _logger;
-        public PeliculasController(IPeliculaService pelServ, IMapper mapper, Serilog.ILogger logger)
+        public PeliculasController(IPeliculaService pelServ, 
+                                   IMapper mapper, 
+                                   Serilog.ILogger logger,
+                                   IWebHostEnvironment environment)
         {
             _pelService = pelServ;
             _mapper = mapper;
             _logger = logger;
+            _environment = environment;
         }
 
         [AllowAnonymous]
@@ -64,16 +69,16 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult CreateMovie([FromBody] PeliculaDto peliculaDto)
+        public async Task<IActionResult> CreateMovie([FromBody] PeliculaDto peliculaDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (peliculaDto == null)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            //if (peliculaDto == null)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             //if (_pelService.ExistePelicula(peliculaDto.Nombre))
             //{
@@ -86,7 +91,7 @@ namespace ApiPeliculas.Controllers
             //    ModelState.AddModelError("", $"Algo salió mal guardando el registro{pelicula.Nombre}");
             //    return StatusCode(500, ModelState);
             //}
-            _pelService.CreateMovieAsync(pelicula);
+            await _pelService.CreateMovieAsync(pelicula);
             return CreatedAtRoute("GetPelicula", new { peliculaId = pelicula.Id }, pelicula);
         }
 
@@ -169,6 +174,42 @@ namespace ApiPeliculas.Controllers
         //    {
         //        return StatusCode(StatusCodes.Status500InternalServerError, "Error recuperando datos");
         //    }
+        //}
+
+
+        //[AllowAnonymous]
+        //[HttpPost("UploadImageReq")]
+        //public async Task<ActionResult> UploadImageReq()
+        //{
+        //    bool res = false;
+        //    var uploadedfiles = Request.Form.Files;
+        //    foreach (IFormFile item in uploadedfiles)
+        //    {
+        //        string Filename = item.FileName;
+        //        int idreq = Convert.ToInt32(Request.Form["nroreq"]);
+        //        string xtension = string.Empty;
+        //        xtension = FileHelper.GetExtension(item.FileName);
+
+        //        Guid newguid = Guid.NewGuid();
+        //        Filename = newguid.ToString().ToLower();
+        //        string Filepath = this._environment.WebRootPath + $"\\uploads\\reqs\\{idreq}";
+        //        if (!Directory.Exists(Filepath))
+        //        {
+        //            Directory.CreateDirectory(Filepath);
+        //        }
+        //        string imagepath = Filepath + "\\" + Filename + ".jpeg";
+        //        if (System.IO.File.Exists(imagepath))
+        //        {
+        //            System.IO.File.Delete(imagepath);
+        //        }
+        //        using FileStream stream = System.IO.File.Create(imagepath);
+        //        ReqActivo _req = _RequeService.GetReque(idreq);
+        //        _req.ImageGUID = idreq.ToString();
+        //        await this._RequeService.UpdateRequeAdminAsync(_req);
+        //        await item.CopyToAsync(stream);
+        //        res = true;
+        //    }
+        //    return Ok(res);
         //}
     }
 }

@@ -29,6 +29,20 @@ namespace ApiMovies.Middlewares
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
+                // Obtener el mensaje de la excepción.
+                var message = ex.Message;
+
+                // Obtener el nombre completo del tipo de la excepción.
+                var exceptionType = ex.GetType().FullName;
+
+                // Obtener la traza de la pila.
+                var stackTrace = ex.StackTrace;
+                // Acceder a los valores de la ruta
+                var routeValues = httpContext.Request.RouteValues;
+
+                // Obtener el controlador y la acción, si están disponibles
+                var controller = routeValues["controller"]?.ToString();
+                var action = routeValues["action"]?.ToString();
                 httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 

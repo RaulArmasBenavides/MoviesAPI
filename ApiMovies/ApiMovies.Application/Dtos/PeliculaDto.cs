@@ -20,6 +20,8 @@ namespace ApiMovies.Application.Dtos
         public DateTime FechaCreacion { get; set; }
        
         public int categoriaId { get; set; }
-        
+
+        public string Estado { get; set; }
+
     }
 }

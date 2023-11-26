@@ -25,6 +25,7 @@ namespace ApiMovies.Application.Services
         public async Task CreateMovieAsync(Pelicula pel)
         {
              _contenedorTrabajo.Peliculas.Add(pel);
+            //_contenedorTrabajo.Save();
             await _contenedorTrabajo.SaveChangesAsync();
         }
 

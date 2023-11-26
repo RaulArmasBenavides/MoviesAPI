@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ApiMovies.Infraestructure.Repositorio.WorkContainer
 {
-    public interface IWorkContainer
+    public interface IWorkContainer : IDisposable
     {
         ICategoriaRepositorio Categorias { get; }
 
