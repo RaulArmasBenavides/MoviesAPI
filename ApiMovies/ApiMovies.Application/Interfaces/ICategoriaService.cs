@@ -12,5 +12,7 @@ namespace ApiMovies.Application.Interfaces
         Task CreateCategoryAsync(Categoria pel);
         Task UpdateCategoryAsync(Categoria pel);
         Task DeleteCategoryAsync(int id);
+
+        IEnumerable<object> GetAllCategories();
     }
 }

@@ -34,6 +34,11 @@ namespace ApiMovies.Application.Services
             await _contenedorTrabajo.SaveChangesAsync();
         }
 
+        public IEnumerable<object> GetAllCategories()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task UpdateCategoryAsync(Categoria cat)
         {
             _contenedorTrabajo.Categorias.Update(cat);
