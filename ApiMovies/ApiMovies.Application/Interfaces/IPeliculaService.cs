@@ -11,7 +11,7 @@ namespace ApiMovies.Application.Interfaces
     {
         Task CreateMovieAsync(Pelicula pel);
         Task UpdateMovieAsync(Pelicula pel);
-        Task DeleteMovieAsync(int id);
+        Task<bool> DeleteMovieAsync(int id);
         IEnumerable<object> GetAllReque();
         Pelicula GetPelicula(int id);
         bool ExistePelicula(int id);

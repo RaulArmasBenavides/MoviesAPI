@@ -34,7 +34,17 @@ namespace ApiMovies.Application.Services
             await _contenedorTrabajo.SaveChangesAsync();
         }
 
+        public IEnumerable<Categoria> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<object> GetAllCategories()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Categoria GetCategoria(int id)
         {
             throw new NotImplementedException();
         }

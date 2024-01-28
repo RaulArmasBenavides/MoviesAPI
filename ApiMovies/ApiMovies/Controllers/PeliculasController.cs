@@ -71,14 +71,14 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateMovie([FromBody] PeliculaDto peliculaDto)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            //if (peliculaDto == null)
-            //{
-            //    return BadRequest(ModelState);
-            //}
+            if (!ModelState.IsValid)
+            {
+               return BadRequest(ModelState);
+            }
+            if (peliculaDto == null)
+            {
+                return BadRequest(ModelState);
+            }
 
             //if (_pelService.ExistePelicula(peliculaDto.Nombre))
             //{
@@ -86,11 +86,6 @@ namespace ApiPeliculas.Controllers
             //    return StatusCode(404, ModelState);
             //}
             var pelicula = _mapper.Map<Pelicula>(peliculaDto);
-            //if (!_pelService.CreateMovieAsync(pelicula))
-            //{
-            //    ModelState.AddModelError("", $"Algo salió mal guardando el registro{pelicula.Nombre}");
-            //    return StatusCode(500, ModelState);
-            //}
             await _pelService.CreateMovieAsync(pelicula);
             return CreatedAtRoute("GetPelicula", new { peliculaId = pelicula.Id }, pelicula);
         }
@@ -127,12 +122,12 @@ namespace ApiPeliculas.Controllers
             }
 
             //var pelicula = _pelService.GetPelicula(peliculaId);
-             await _pelService.DeleteMovieAsync(peliculaId);
-            //if (!res)
-            //{
-            //    ModelState.AddModelError("", $"Algo salió mal borrando el registro{pelicula.Nombre}");
-            //    return StatusCode(500, ModelState);
-            //}
+             var res =await _pelService.DeleteMovieAsync(peliculaId);
+            if (!res)
+            {
+                ModelState.AddModelError("", $"Algo salió mal borrando la película");
+               return StatusCode(500, ModelState);
+            }
             return NoContent();
         }
 

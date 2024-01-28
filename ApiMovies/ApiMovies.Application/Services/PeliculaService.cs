@@ -35,10 +35,18 @@ namespace ApiMovies.Application.Services
             await _contenedorTrabajo.SaveChangesAsync();
         }
 
-        public async Task DeleteMovieAsync(int id)
+        public async Task<bool> DeleteMovieAsync(int id)
         {
-            _contenedorTrabajo.Peliculas.Remove(id);
-            await _contenedorTrabajo.SaveChangesAsync();
+            Pelicula pel = _contenedorTrabajo.Peliculas.Get(id);
+
+            if (pel != null)
+            {
+                _contenedorTrabajo.Peliculas.Remove(pel);
+                await _contenedorTrabajo.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
         public IEnumerable<object> GetAllReque()
