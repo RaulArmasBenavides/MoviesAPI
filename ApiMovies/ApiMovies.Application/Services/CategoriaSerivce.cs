@@ -22,9 +22,9 @@ namespace ApiMovies.Application.Services
             _contenedorTrabajo = unitOfWork;
             _mapper = mapper;
         }
-        public async Task CreateCategoryAsync(Categoria cat)
+        public async Task CreateCategoryAsync(Categoria category)
         {
-            _contenedorTrabajo.Categorias.Add(cat);
+            _contenedorTrabajo.Categorias.Add(category);
             await _contenedorTrabajo.SaveChangesAsync();
         }
 

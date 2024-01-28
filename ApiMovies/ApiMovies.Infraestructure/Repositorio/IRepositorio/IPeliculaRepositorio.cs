@@ -7,9 +7,6 @@ namespace ApiMovies.Infraestructure.Repositorio.IRepositorio
     {
         ICollection<Pelicula> GetPeliculas();
         Pelicula GetPelicula(int peliculaId);
-        bool ExistePelicula(string nombre);
-        bool ExistePelicula(int id);
- 
         ICollection<Pelicula> GetPeliculasEnCategoria(int catId);
         ICollection<Pelicula> BuscarPelicula(string nombre);
         bool Guardar();

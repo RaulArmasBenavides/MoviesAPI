@@ -14,5 +14,6 @@ namespace ApiMovies.Application.Interfaces
         Task DeleteMovieAsync(int id);
         IEnumerable<object> GetAllReque();
         Pelicula GetPelicula(int id);
+        bool ExistePelicula(int id);
     }
 }

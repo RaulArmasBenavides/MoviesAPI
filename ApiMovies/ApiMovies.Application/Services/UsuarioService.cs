@@ -40,7 +40,7 @@ namespace ApiMovies.Application.Services
             var usuario = _contenedorTrabajo.Usuarios.GetUsuarioByUserName(usuarioLoginDto.NombreUsuario.ToLower());
             bool isValid = await _userManager.CheckPasswordAsync(usuario, usuarioLoginDto.Password);
             //Validamos si el usuario no existe con la combinación de usuario y contraseña correcta
-            if (usuario == null || isValid == false)
+            if (usuario == null || !isValid )
             {
                 //return null;
                 return new UsuarioLoginRespuestaDto()
@@ -59,8 +59,8 @@ namespace ApiMovies.Application.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, usuario.UserName.ToString()),
-                    new Claim(ClaimTypes.Role, roles.FirstOrDefault())
+                    new(ClaimTypes.Name, usuario.UserName.ToString()),
+                    new(ClaimTypes.Role, roles.FirstOrDefault())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

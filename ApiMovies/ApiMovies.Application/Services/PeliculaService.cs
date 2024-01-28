@@ -52,6 +52,11 @@ namespace ApiMovies.Application.Services
             return _contenedorTrabajo.Peliculas.Get(id);
         }
 
+        public bool ExistePelicula( int id)
+        {
+            return _contenedorTrabajo.Peliculas.Exists(movie => movie.Id == id);
+        }
+
 
     }
 }

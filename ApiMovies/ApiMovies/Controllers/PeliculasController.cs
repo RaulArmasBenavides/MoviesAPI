@@ -112,29 +112,29 @@ namespace ApiPeliculas.Controllers
             return NoContent();
         }
 
-        //[Authorize(Roles = "admin")]
-        //[HttpDelete("{peliculaId:int}", Name = "BorrarPelicula")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public IActionResult BorrarPelicula(int peliculaId)
-        //{
-        //    if (!_pelRepo.ExistePelicula(peliculaId))
-        //    {
-        //        return NotFound();
-        //    }
+        [Authorize(Roles = "admin")]
+        [HttpDelete("{peliculaId:int}", Name = "BorrarPelicula")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> BorrarPeliculaAsync(int peliculaId)
+        {
+            if (!_pelService.ExistePelicula(peliculaId))
+            {
+                return NotFound();
+            }
 
-        //    var pelicula = _pelRepo.GetPelicula(peliculaId);
-
-        //    if (!_pelRepo.BorrarPelicula(pelicula))
-        //    {
-        //        ModelState.AddModelError("", $"Algo salió mal borrando el registro{pelicula.Nombre}");
-        //        return StatusCode(500, ModelState);
-        //    }
-        //    return NoContent();
-        //}
+            //var pelicula = _pelService.GetPelicula(peliculaId);
+             await _pelService.DeleteMovieAsync(peliculaId);
+            //if (!res)
+            //{
+            //    ModelState.AddModelError("", $"Algo salió mal borrando el registro{pelicula.Nombre}");
+            //    return StatusCode(500, ModelState);
+            //}
+            return NoContent();
+        }
 
         //[AllowAnonymous]
         //[HttpGet("GetPeliculasEnCategoria/{categoriaId:int}")]      

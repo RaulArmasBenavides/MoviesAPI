@@ -31,6 +31,6 @@ namespace ApiMovies.Infraestructure.Repositorio.IRepositorio
 
         IEnumerable<object> GetAllSelectLoading();
 
-
+        bool Exists(Expression<Func<T, bool>> filter);
     }
 }

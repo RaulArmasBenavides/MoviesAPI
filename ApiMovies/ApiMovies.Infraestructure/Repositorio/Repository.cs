@@ -81,5 +81,9 @@ namespace ApiMovies.Infraestructure.Repositorio
         {
             _dbset.Remove(entity);
         }
+        public bool Exists(Expression<Func<T, bool>> filter)
+        {
+            return _dbset.Any(filter);
+        }
     }
 }
