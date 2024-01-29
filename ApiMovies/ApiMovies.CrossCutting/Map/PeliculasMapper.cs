@@ -1,8 +1,9 @@
-﻿using ApiMovies.Application.Dtos;
+﻿
+using ApiMovies.Application.Dtos;
 using ApiMovies.Core.Entities;
 using AutoMapper;
 
-namespace ApiMovies.PeliculasMapper
+namespace ApiMovies.CrossCutting.PeliculasMapper
 {
     public class PeliculasMapper : Profile
     {

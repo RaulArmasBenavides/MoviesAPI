@@ -1,4 +1,3 @@
-using ApiMovies.PeliculasMapper;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
@@ -13,6 +12,8 @@ using ApiMovies.Application.Interfaces;
 using ApiMovies.Application.Services;
 using Serilog;
 using ApiMovies.Middlewares;
+using ApiMovies.CrossCutting.PeliculasMapper;
+using ApiMovies.Extensions;
 
 public class Program
 {
@@ -80,6 +81,7 @@ public class Program
             new List<string>()
         }
     });
+            options.DocumentFilter<HideInProdFilter>();
         });
         //Soporte para CORS
         //Se pueden habilitar: 1-Un dominio, 2-multiples dominios,

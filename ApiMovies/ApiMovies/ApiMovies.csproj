@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ApiMovies.Application\ApiMovies.Application.csproj" />
     <ProjectReference Include="..\ApiMovies.Core\ApiMovies.Core.csproj" />
+    <ProjectReference Include="..\ApiMovies.CrossCutting\ApiMovies.CrossCutting.csproj" />
     <ProjectReference Include="..\ApiMovies.Infraestructure\ApiMovies.Infraestructure.csproj" />
   </ItemGroup>
 
