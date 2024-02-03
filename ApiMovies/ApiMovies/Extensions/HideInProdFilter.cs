@@ -8,8 +8,6 @@ namespace ApiMovies.Extensions
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             //var isProduction = /* tu lógica para determinar el entorno */;
-
-        
             var routesToRemove = new List<string> { "usuarios", "usuarios/{usuarioId}" };
             foreach (var route in routesToRemove)
             {

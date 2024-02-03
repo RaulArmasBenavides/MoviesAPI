@@ -57,7 +57,7 @@ namespace ApiMovies.Repositorio
 
         public bool Guardar()
         {
-            return _bd.SaveChanges() >= 0 ? true : false;
+            return _bd.SaveChanges() >= 0 ;
         }
     }
 }
