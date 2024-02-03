@@ -5,7 +5,6 @@ using ApiMovies.Infraestructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 namespace ApiMovies.Infraestructure
 {
     public static class DependencyInjection
@@ -15,8 +14,22 @@ namespace ApiMovies.Infraestructure
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("ConexionSQL"),
-                  b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)), ServiceLifetime.Scoped);
-            //services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+                  b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)), 
+                  ServiceLifetime.Scoped);
+
+            // Configuración para Oracle
+            services.AddDbContext<OracleContext>(options =>
+                options.UseOracle(
+                    configuration.GetConnectionString("ConexionOracle"),
+                    b => b.MigrationsAssembly(typeof(OracleContext).Assembly.FullName)),
+                ServiceLifetime.Scoped);
+
+            // Configuración para PostgreSQL
+            services.AddDbContext<PostgreSqlContext>(options =>
+                options.UseNpgsql(
+                    configuration.GetConnectionString("ConexionPostgreSQL"),
+                    b => b.MigrationsAssembly(typeof(PostgreSqlContext).Assembly.FullName)),
+                ServiceLifetime.Scoped);
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IWorkContainer, WorkContainer>();
             return services;
