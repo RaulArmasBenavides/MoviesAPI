@@ -25,11 +25,11 @@ namespace ApiMovies.Infraestructure
                 ServiceLifetime.Scoped);
 
             // Configuración para PostgreSQL
-            services.AddDbContext<PostgreSqlContext>(options =>
-                options.UseNpgsql(
-                    configuration.GetConnectionString("ConexionPostgreSQL"),
-                    b => b.MigrationsAssembly(typeof(PostgreSqlContext).Assembly.FullName)),
-                ServiceLifetime.Scoped);
+            //services.AddDbContext<PostgreSqlContext>(options =>
+            //    options.UseNpgsql(
+            //        configuration.GetConnectionString("ConexionPostgreSQL"),
+            //        b => b.MigrationsAssembly(typeof(PostgreSqlContext).Assembly.FullName)),
+            //    ServiceLifetime.Scoped);
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IWorkContainer, WorkContainer>();
             return services;

@@ -53,7 +53,6 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerDocumentation();
-
         //Soporte para CORS
         //Se pueden habilitar: 1-Un dominio, 2-multiples dominios,
         //3-cualquier dominio (Tener en cuenta seguridad)
