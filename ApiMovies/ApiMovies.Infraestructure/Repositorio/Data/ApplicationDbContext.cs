@@ -25,17 +25,33 @@ namespace ApiMovies.Infraestructure.Data
     //    public DbSet<AppUsuario> AppUsuario { get; set; }
     //}
 
-    public class OracleContext : IdentityDbContext<AppUsuario>
+    public class OracleDBContext :DbContext
     {
-        public OracleContext(DbContextOptions<OracleContext> options) : base(options) { }
+        public OracleDBContext(DbContextOptions<OracleDBContext> options) : base(options) { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
- 
+            // Configura la clave foránea con un nombre más corto
+            modelBuilder.Entity<Pelicula>()
+                .HasOne(p => p.Categoria)
+                .WithMany()
+                .HasForeignKey(p => p.categoriaId)
+                .HasConstraintName("FK_Peli_Cat");
+        }
+        public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<Pelicula> Pelicula { get; set; }
+        //public DbSet<Usuario> Usuario { get; set; }
+        //public DbSet<AppUsuario> AppUsuario { get; set; }
     }
 
     public class PostgreSqlContext : IdentityDbContext<AppUsuario>
     {
         public PostgreSqlContext(DbContextOptions<PostgreSqlContext> options) : base(options) { }
+        public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<Pelicula> Pelicula { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<AppUsuario> AppUsuario { get; set; }
 
- 
     }
 }
