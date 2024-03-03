@@ -1,12 +1,6 @@
 ﻿using ApiMovies.Application.Interfaces;
 using ApiMovies.Infraestructure.Repositorio.WorkContainer;
-using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ApiMovies.Core.Entities;
 
 namespace ApiMovies.Application.Services

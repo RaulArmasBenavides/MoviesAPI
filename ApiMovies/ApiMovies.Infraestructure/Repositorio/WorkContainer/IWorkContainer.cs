@@ -1,10 +1,4 @@
-﻿using ApiMovies.Core.Entities;
-using ApiMovies.Infraestructure.Repositorio.IRepositorio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApiMovies.Core.IRepositorio;
 
 namespace ApiMovies.Infraestructure.Repositorio.WorkContainer
 {

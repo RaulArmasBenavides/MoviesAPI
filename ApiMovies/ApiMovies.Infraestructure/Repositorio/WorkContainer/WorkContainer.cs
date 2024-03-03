@@ -1,5 +1,5 @@
-﻿using ApiMovies.Infraestructure.Data;
-using ApiMovies.Infraestructure.Repositorio.IRepositorio;
+﻿using ApiMovies.Core.IRepositorio;
+using ApiMovies.Infraestructure.Data;
 using ApiMovies.Repositorio;
 
 namespace ApiMovies.Infraestructure.Repositorio.WorkContainer

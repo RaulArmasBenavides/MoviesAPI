@@ -1,10 +1,10 @@
 ﻿using ApiMovies.Infraestructure.Repositorio;
-using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 using ApiMovies.Infraestructure.Repositorio.WorkContainer;
 using ApiMovies.Infraestructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ApiMovies.Core.IRepositorio;
 namespace ApiMovies.Infraestructure
 {
     public static class DependencyInjection

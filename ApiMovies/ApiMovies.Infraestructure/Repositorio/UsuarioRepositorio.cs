@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Data;
 //using XAct.Library.Settings;
 //using XAct.Users;
 //using XSystem.Security.Cryptography;
 using ApiMovies.Core.Entities;
 using ApiMovies.Infraestructure.Data;
-using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 using Microsoft.Extensions.Configuration;
+using ApiMovies.Core.IRepositorio;
 
 namespace ApiMovies.Repositorio
 {

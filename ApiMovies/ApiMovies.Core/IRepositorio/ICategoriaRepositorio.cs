@@ -1,6 +1,6 @@
 ﻿using ApiMovies.Core.Entities;
 
-namespace ApiMovies.Infraestructure.Repositorio.IRepositorio
+namespace ApiMovies.Core.IRepositorio
 {
     public interface ICategoriaRepositorio : IRepository<Categoria>
     {

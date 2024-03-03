@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiMovies.Infraestructure.Repositorio.IRepositorio
+namespace ApiMovies.Core.IRepositorio
 {
     public interface IRepository<T> where T : class
     {

@@ -1,7 +1,6 @@
 ﻿using ApiMovies.Core.Entities;
-using System.Reflection.Metadata;
 
-namespace ApiMovies.Infraestructure.Repositorio.IRepositorio
+namespace ApiMovies.Core.IRepositorio
 {
     public interface IPeliculaRepositorio : IRepository<Pelicula>
     {

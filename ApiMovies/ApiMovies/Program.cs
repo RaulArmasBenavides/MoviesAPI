@@ -1,11 +1,9 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using ApiMovies.Core.Entities;
 using ApiMovies.Repositorio;
-using ApiMovies.Infraestructure.Repositorio.IRepositorio;
 using ApiMovies.Infraestructure.Data;
 using ApiMovies.Infraestructure;
 using ApiMovies.Application.Interfaces;
@@ -14,6 +12,7 @@ using Serilog;
 using ApiMovies.Middlewares;
 using ApiMovies.CrossCutting.PeliculasMapper;
 using ApiMovies.Extensions;
+using ApiMovies.Core.IRepositorio;
 
 public class Program
 {
