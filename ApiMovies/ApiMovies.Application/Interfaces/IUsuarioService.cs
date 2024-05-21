@@ -13,7 +13,7 @@ namespace ApiMovies.Application.Interfaces
 
         Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto);
 
-        Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto,string SecretKey);
+        Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto);
 
         ICollection<AppUsuario> GetUsuarios();
 

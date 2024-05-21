@@ -9,7 +9,7 @@ namespace ApiPeliculas.Controllers
 
     [ApiController]
     //[Route("api/[controller]")]//Una opción
-    [Route("api/categorias")]
+    [Route("api/categories")]
     public class CategoriasController : ControllerBase
     {
         private readonly ICategoriaService _ctService;

@@ -7,13 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPeliculas.Controllers
 {
-    [Route("api/usuarios")]
+    [Route("api/users")]
     [ApiController]
     public class UsuariosController : ControllerBase
     {
         private readonly IUsuarioService _usService;
         protected RespuestAPI _respuestaApi;
-        private IConfiguration _config;
         private readonly IMapper _mapper;
 
         public UsuariosController(IUsuarioService usservice, IMapper mapper,IConfiguration config)
@@ -21,9 +20,7 @@ namespace ApiPeliculas.Controllers
             _usService = usservice;
             this._respuestaApi = new();
             _mapper = mapper;
-            _config=config;
         }
-
 
         [AllowAnonymous]
         [HttpGet("check-protocol")]
@@ -112,7 +109,7 @@ namespace ApiPeliculas.Controllers
         {
 
             
-            var rptaservice = await _usService.Login(usuarioLoginDto, _config.GetValue<string>("ApiSettings:Secreta"));
+            var rptaservice = await _usService.Login(usuarioLoginDto);
             //var respuestaLogin = await _usRepo.Login(usuarioLoginDto);
 
             //if (respuestaLogin.Usuario == null || string.IsNullOrEmpty(respuestaLogin.Token))

@@ -40,7 +40,7 @@ namespace ApiMovies.Repositorio
 
         public bool IsUniqueUser(string usuario)
         {
-            var usuariobd = _bd.Usuario.FirstOrDefault(u => u.NombreUsuario== usuario);
+            var usuariobd = _bd.AppUsuario.FirstOrDefault(u => u.Nombre== usuario);
             if (usuariobd == null)
             {
                 return true;

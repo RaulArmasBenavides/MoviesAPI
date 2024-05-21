@@ -6,14 +6,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-
+using Microsoft.Extensions.Configuration;
 namespace ApiMovies.Application.Services
 {
     public class UsuarioService : IUsuarioService
@@ -35,14 +31,12 @@ namespace ApiMovies.Application.Services
             _roleManager = roleManager;
         }
 
-        public async Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto, string SecretKey)
+        public async Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto)
         {
             var usuario = _contenedorTrabajo.Usuarios.GetUsuarioByUserName(usuarioLoginDto.NombreUsuario.ToLower());
             bool isValid = await _userManager.CheckPasswordAsync(usuario, usuarioLoginDto.Password);
-            //Validamos si el usuario no existe con la combinación de usuario y contraseña correcta
             if (usuario == null || !isValid )
             {
-                //return null;
                 return new UsuarioLoginRespuestaDto()
                 {
                     Token = "",
@@ -52,9 +46,9 @@ namespace ApiMovies.Application.Services
             //Aquí existe el usuario entonces podemos procesar el login
             var roles = await _userManager.GetRolesAsync(usuario);
             var manejadorToken = new JwtSecurityTokenHandler();
-
-           
-            var key = Encoding.ASCII.GetBytes(SecretKey); 
+            string keyconfig = _config.GetSection("ApiSettings:Secreta").Value.ToString();
+            //string key2 = _config.GetValue<string>("ApiSettings:Secreta");
+            var key = Encoding.ASCII.GetBytes(keyconfig); 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -76,7 +70,7 @@ namespace ApiMovies.Application.Services
         }
         public async Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto)
         {
-            AppUsuario usuario = new AppUsuario()
+            AppUsuario usuario = new()
             {
                 UserName = usuarioRegistroDto.NombreUsuario,
                 Email = usuarioRegistroDto.NombreUsuario,
