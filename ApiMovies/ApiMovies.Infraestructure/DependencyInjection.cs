@@ -31,7 +31,7 @@ namespace ApiMovies.Infraestructure
             //        b => b.MigrationsAssembly(typeof(PostgreSqlContext).Assembly.FullName)),
             //    ServiceLifetime.Scoped);
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IWorkContainer, WorkContainer>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }
     }

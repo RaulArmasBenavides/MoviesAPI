@@ -4,11 +4,11 @@ using ApiMovies.Repositorio;
 
 namespace ApiMovies.Infraestructure.Repositorio.WorkContainer
 {
-    public class WorkContainer : IWorkContainer
+    public class UnitOfWork : IUnitOfWork
     {
 
         private readonly ApplicationDbContext _db;
-        public WorkContainer( ApplicationDbContext db) {
+        public UnitOfWork( ApplicationDbContext db) {
             _db = db;
             Categorias = new CategoriaRepositorio(_db);
             Peliculas = new PeliculaRepositorio(_db);

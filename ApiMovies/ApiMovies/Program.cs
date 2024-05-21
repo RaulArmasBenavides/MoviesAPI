@@ -21,16 +21,13 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         //Soporte para autenticación con .NET Identity
         builder.Services.AddIdentity<AppUsuario, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-        //Agregamos los repositorios
-        builder.Services.AddScoped<IPeliculaService, PeliculaService>();
-        builder.Services.AddScoped<IUsuarioService, UsuarioService>();
-        builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
-        builder.Services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
-        builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+        builder.Services.AddApplicationServices(builder.Configuration);
         builder.Services.AddPersistence(builder.Configuration);
         builder.Host.UseSerilog((context, configuration) =>
         configuration.ReadFrom.Configuration(context.Configuration));
         var key = builder.Configuration.GetValue<string>("ApiSettings:Secreta");
+
+
         builder.Services.AddAutoMapper(typeof(PeliculasMapper));
         builder.Services.AddAuthentication(x =>
         {

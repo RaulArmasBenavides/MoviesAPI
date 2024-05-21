@@ -1,5 +1,6 @@
 ﻿using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
+using ApiMovies.Core.IRepositorio;
 using ApiMovies.Infraestructure.Repositorio.WorkContainer;
 using AutoMapper;
 
@@ -8,10 +9,10 @@ namespace ApiMovies.Application.Services
     public class CategoriaSerivce : ICategoriaService
     {
 
-        private readonly IWorkContainer _contenedorTrabajo;
+        private readonly IUnitOfWork _contenedorTrabajo;
         private readonly IMapper _mapper;
 
-        public CategoriaSerivce(IWorkContainer unitOfWork, IMapper mapper)
+        public CategoriaSerivce(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _contenedorTrabajo = unitOfWork;
             _mapper = mapper;

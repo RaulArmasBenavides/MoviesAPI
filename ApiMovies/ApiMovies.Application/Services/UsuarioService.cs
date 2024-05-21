@@ -10,17 +10,18 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using ApiMovies.Core.IRepositorio;
 namespace ApiMovies.Application.Services
 {
     public class UsuarioService : IUsuarioService
     {
         private readonly IMapper _mapper;
         private readonly UserManager<AppUsuario> _userManager;
-        private readonly IWorkContainer _contenedorTrabajo;
+        private readonly IUnitOfWork _contenedorTrabajo;
         private IConfiguration _config;
 
         private readonly RoleManager<IdentityRole> _roleManager;
-        public UsuarioService(IWorkContainer unitOfWork, IConfiguration config, UserManager<AppUsuario> userManager, IMapper mapper , RoleManager<IdentityRole> roleManager)
+        public UsuarioService(IUnitOfWork unitOfWork, IConfiguration config, UserManager<AppUsuario> userManager, IMapper mapper , RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
 

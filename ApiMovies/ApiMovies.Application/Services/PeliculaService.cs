@@ -2,15 +2,16 @@
 using ApiMovies.Infraestructure.Repositorio.WorkContainer;
 using AutoMapper;
 using ApiMovies.Core.Entities;
+using ApiMovies.Core.IRepositorio;
 
 namespace ApiMovies.Application.Services
 {
     public class PeliculaService : IPeliculaService
     {
-        private readonly IWorkContainer _contenedorTrabajo;
+        private readonly IUnitOfWork _contenedorTrabajo;
         private readonly IMapper _mapper;
 
-        public PeliculaService(IWorkContainer unitOfWork, IMapper mapper)
+        public PeliculaService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _contenedorTrabajo = unitOfWork;
             _mapper = mapper;

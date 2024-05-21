@@ -1,8 +1,8 @@
 ﻿using ApiMovies.Core.IRepositorio;
 
-namespace ApiMovies.Infraestructure.Repositorio.WorkContainer
+namespace ApiMovies.Core.IRepositorio
 {
-    public interface IWorkContainer : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         ICategoriaRepositorio Categorias { get; }
         IPeliculaRepositorio Peliculas { get; }
