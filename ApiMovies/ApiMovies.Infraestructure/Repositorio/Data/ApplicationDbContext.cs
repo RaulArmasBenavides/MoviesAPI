@@ -31,8 +31,6 @@ namespace ApiMovies.Infraestructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Configura la clave foránea con un nombre más corto
             modelBuilder.Entity<Pelicula>()
                 .HasOne(p => p.Categoria)
                 .WithMany()
@@ -41,8 +39,6 @@ namespace ApiMovies.Infraestructure.Data
         }
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Pelicula> Pelicula { get; set; }
-        //public DbSet<Usuario> Usuario { get; set; }
-        //public DbSet<AppUsuario> AppUsuario { get; set; }
     }
 
     public class PostgreSqlContext : IdentityDbContext<AppUsuario>

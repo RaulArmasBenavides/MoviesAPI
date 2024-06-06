@@ -1,4 +1,4 @@
-﻿namespace ApiMovies.Response
+﻿namespace ApiMovies.Application.Dtos.Response
 {
     public class APIFileResponse
     {

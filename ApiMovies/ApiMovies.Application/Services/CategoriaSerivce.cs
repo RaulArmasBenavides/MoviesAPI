@@ -1,4 +1,5 @@
-﻿using ApiMovies.Application.Interfaces;
+﻿using ApiMovies.Application.Dtos.Response;
+using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using ApiMovies.Core.IRepositorio;
 using ApiMovies.Infraestructure.Repositorio.WorkContainer;
@@ -17,10 +18,11 @@ namespace ApiMovies.Application.Services
             _contenedorTrabajo = unitOfWork;
             _mapper = mapper;
         }
-        public async Task CreateCategoryAsync(Categoria category)
+        public async Task<APIResponse> CreateCategoryAsync(Categoria category)
         {
             _contenedorTrabajo.Categorias.Add(category);
             await _contenedorTrabajo.SaveChangesAsync();
+            return new APIResponse(200, "Category created");
         }
 
         public async Task DeleteCategoryAsync(int id)
@@ -36,9 +38,9 @@ namespace ApiMovies.Application.Services
 
         public IEnumerable<object> GetAllCategories()
         {
-            throw new NotImplementedException();
+           return _contenedorTrabajo.Categorias.GetAll();
         }
-
+         
         public Categoria GetCategoria(int id)
         {
             throw new NotImplementedException();

@@ -16,6 +16,8 @@ namespace ApiMovies.Extensions
         {
             services.AddScoped<IPeliculaService, PeliculaService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<ICategoriaService, CategoriaSerivce>();
+
             services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
             services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();

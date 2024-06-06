@@ -1,5 +1,6 @@
 ﻿using ApiMovies.Application.Dtos;
 using ApiMovies.Application.Interfaces;
+using ApiMovies.Core.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,13 +30,13 @@ namespace ApiPeliculas.Controllers
         { 
             var listaCategorias = _ctService.GetAllCategories();
 
-            var listaCategoriasDto = new List<CategoriaDto>();
+            //var listaCategoriasDto = new List<CategoriaDto>();
 
-            foreach (var lista in listaCategorias)
-            {
-                listaCategoriasDto.Add(_mapper.Map<CategoriaDto>(lista));
-            }
-            return Ok(listaCategoriasDto);
+            //foreach (var lista in listaCategorias)
+            //{
+            //    listaCategoriasDto.Add(_mapper.Map<CategoriaDto>(lista));
+            //}
+            return Ok(listaCategorias);
         }
 
         [AllowAnonymous]
@@ -58,37 +59,27 @@ namespace ApiPeliculas.Controllers
         }
 
         //[Authorize(Roles = "admin")]
-        //[HttpPost]
-        //[ProducesResponseType(201, Type = typeof(CategoriaDto))]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //public IActionResult CrearCategoria([FromBody] CrearCategoriaDto crearCategoriaDto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    if (crearCategoriaDto == null)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [HttpPost]
+        [AllowAnonymous]
+        [ProducesResponseType(201, Type = typeof(CategoriaDto))]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CrearCategoria([FromBody] CrearCategoriaDto crearCategoriaDto)
+        {
 
-        //    if (_ctService.ExisteCategoria(crearCategoriaDto.Nombre))
-        //    {
-        //        ModelState.AddModelError("", "La categoría ya existe");
-        //        return StatusCode(404, ModelState);
-        //    }
+            //if (_ctService.ExisteCategoria(crearCategoriaDto.Nombre))
+            //{
+            //    ModelState.AddModelError("", "La categoría ya existe");
+            //    return StatusCode(404, ModelState);
+            //}
 
-        //    var categoria = _mapper.Map<Categoria>(crearCategoriaDto);
-        //    if (!_ctService.CrearCategoria(categoria))
-        //    {
-        //        ModelState.AddModelError("", $"Algo salió mal guardando el registro{categoria.Nombre}");
-        //        return StatusCode(500, ModelState);
-        //    }
-        //    return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id }, categoria);
-        //}
+            var categoria = _mapper.Map<Categoria>(crearCategoriaDto);
+            var responseDto  = await _ctService.CreateCategoryAsync(categoria);
+            return Ok(responseDto);
+            //return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id }, categoria);
+        }
 
         //[Authorize(Roles = "admin")]
         //[HttpPatch("{categoriaId:int}", Name = "ActualizarPatchCategoria")]

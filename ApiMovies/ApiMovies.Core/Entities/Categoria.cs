@@ -9,6 +9,6 @@ namespace ApiMovies.Core.Entities
 
         [Required]
         public string Nombre { get; set; }
-        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaCreacion { get; set; } = DateTime.Now;
     }
 }

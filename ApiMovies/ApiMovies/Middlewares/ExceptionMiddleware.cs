@@ -1,4 +1,4 @@
-﻿using ApiMovies.Response;
+﻿using ApiMovies.Application.Dtos.Response;
 using System.Net;
 using System.Text.Json;
 
