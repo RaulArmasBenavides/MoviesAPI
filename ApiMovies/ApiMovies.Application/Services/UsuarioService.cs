@@ -1,7 +1,7 @@
 ﻿using ApiMovies.Application.Dtos;
 using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
-using ApiMovies.Infraestructure.Repositorio.WorkContainer;
+using ApiMovies.Infrastructure.Repositorio.WorkContainer;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

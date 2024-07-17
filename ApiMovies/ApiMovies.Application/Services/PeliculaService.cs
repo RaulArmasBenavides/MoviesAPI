@@ -1,5 +1,5 @@
 ﻿using ApiMovies.Application.Interfaces;
-using ApiMovies.Infraestructure.Repositorio.WorkContainer;
+using ApiMovies.Infrastructure.Repositorio.WorkContainer;
 using AutoMapper;
 using ApiMovies.Core.Entities;
 using ApiMovies.Core.IRepositorio;

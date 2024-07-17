@@ -4,20 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiMovies.Infraestructure.Helper
+namespace ApiMovies.Infrastructure.Helper
 {
     public static class FileHelper
     {
         public static Stream ReadFileFromServer(string rutaArchivo)
         {
-            using (FileStream fileStream = new FileStream(rutaArchivo, FileMode.Open, FileAccess.Read))
+            using FileStream fileStream = new FileStream(rutaArchivo, FileMode.Open, FileAccess.Read);
+            using (MemoryStream memoryStream = new MemoryStream())
             {
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    fileStream.CopyTo(memoryStream);
-                    memoryStream.Position = 0;
-                    return memoryStream;
-                }
+                fileStream.CopyTo(memoryStream);
+                memoryStream.Position = 0;
+                return memoryStream;
             }
         }
 

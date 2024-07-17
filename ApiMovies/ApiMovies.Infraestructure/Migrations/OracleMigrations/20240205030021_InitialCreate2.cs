@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ApiMovies.Infraestructure.Migrations.OracleMigrations
+namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
 {
     /// <inheritdoc />
     public partial class InitialCreate2 : Migration

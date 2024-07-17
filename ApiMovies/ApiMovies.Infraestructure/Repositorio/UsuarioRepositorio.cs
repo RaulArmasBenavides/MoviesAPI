@@ -3,7 +3,7 @@
 //using XAct.Users;
 //using XSystem.Security.Cryptography;
 using ApiMovies.Core.Entities;
-using ApiMovies.Infraestructure.Data;
+using ApiMovies.Infrastructure.Data;
 using Microsoft.Extensions.Configuration;
 using ApiMovies.Core.IRepositorio;
 

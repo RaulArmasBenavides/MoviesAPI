@@ -1,7 +1,7 @@
 ﻿using ApiMovies.Core.Entities;
 using ApiMovies.Core.IRepositorio;
-using ApiMovies.Infraestructure.Data;
-using ApiMovies.Infraestructure.Repositorio;
+using ApiMovies.Infrastructure.Data;
+using ApiMovies.Infrastructure.Repositorio;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiMovies.Repositorio

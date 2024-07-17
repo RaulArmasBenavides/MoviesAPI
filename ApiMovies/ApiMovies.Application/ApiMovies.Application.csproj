@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiMovies.Core\ApiMovies.Core.csproj" />
-    <ProjectReference Include="..\ApiMovies.Infraestructure\ApiMovies.Infraestructure.csproj" />
+    <ProjectReference Include="..\ApiMovies.Infraestructure\ApiMovies.Infrastructure.csproj" />
   </ItemGroup>
   <!-- Script Creado por Raúl Armas-->
   <Target Name="AssemblyVersion" BeforeTargets="CoreCompile" DependsOnTargets="PrepareForBuild">

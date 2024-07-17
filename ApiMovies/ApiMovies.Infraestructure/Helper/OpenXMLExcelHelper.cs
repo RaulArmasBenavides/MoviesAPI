@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiMovies.Infraestructure.Helper
+namespace ApiMovies.Infrastructure.Helper
 {
     public class OpenXMLExcelHelper : IExcelHelper
     {

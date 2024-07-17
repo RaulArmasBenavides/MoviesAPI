@@ -1,8 +1,8 @@
 ﻿using ApiMovies.Core.IRepositorio;
-using ApiMovies.Infraestructure.Data;
+using ApiMovies.Infrastructure.Data;
 using ApiMovies.Repositorio;
 
-namespace ApiMovies.Infraestructure.Repositorio.WorkContainer
+namespace ApiMovies.Infrastructure.Repositorio.WorkContainer
 {
     public class UnitOfWork : IUnitOfWork
     {

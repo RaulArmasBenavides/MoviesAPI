@@ -2,7 +2,7 @@
 using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using ApiMovies.Core.IRepositorio;
-using ApiMovies.Infraestructure.Repositorio.WorkContainer;
+using ApiMovies.Infrastructure.Repositorio.WorkContainer;
 using AutoMapper;
 
 namespace ApiMovies.Application.Services

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace ApiMovies.Infraestructure.Repositorio
+namespace ApiMovies.Infrastructure.Repositorio
 {
     public class Repository<T> : IRepository<T> where T : class
     {

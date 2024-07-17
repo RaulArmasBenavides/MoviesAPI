@@ -12,11 +12,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiMovies.Core", "ApiMovies
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiMovies.Application", "ApiMovies.Application\ApiMovies.Application.csproj", "{68E3E92A-9B97-448E-8FD9-374AA8CE6B8A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiMovies.Infraestructure", "ApiMovies.Infraestructure\ApiMovies.Infraestructure.csproj", "{12D4E6F3-BE98-4DD8-9EFE-BAE5C1081688}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiMovies.Infrastructure", "ApiMovies.Infraestructure\ApiMovies.Infrastructure.csproj", "{12D4E6F3-BE98-4DD8-9EFE-BAE5C1081688}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiMovies", "ApiMovies\ApiMovies.csproj", "{77A557D1-E8E1-474A-A7C0-F86509C54BAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiMovies.CrossCutting", "ApiMovies.CrossCutting\ApiMovies.CrossCutting.csproj", "{D2EA4DAB-A22D-4FA9-B8E8-BA684EFC5406}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiMovies.CrossCutting", "ApiMovies.CrossCutting\ApiMovies.CrossCutting.csproj", "{D2EA4DAB-A22D-4FA9-B8E8-BA684EFC5406}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
