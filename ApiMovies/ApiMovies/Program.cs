@@ -1,18 +1,11 @@
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using ApiMovies.Core.Entities;
-using ApiMovies.Repositorio;
 using ApiMovies.Infrastructure.Data;
 using ApiMovies.Infrastructure;
-using ApiMovies.Application.Interfaces;
-using ApiMovies.Application.Services;
 using Serilog;
 using ApiMovies.Middlewares;
 using ApiMovies.CrossCutting.PeliculasMapper;
 using ApiMovies.Extensions;
-using ApiMovies.Core.IRepositorio;
 
 public class Program
 {
@@ -23,6 +16,7 @@ public class Program
         builder.Services.AddIdentity<AppUsuario, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddApplicationServices(builder.Configuration);
         builder.Services.AddPersistence(builder.Configuration);
+        builder.Services.AddCustomHealthChecks();
         builder.Host.UseSerilog((context, configuration) =>
         configuration.ReadFrom.Configuration(context.Configuration));
         builder.Services.AddAutoMapper(typeof(PeliculasMapper));
@@ -30,15 +24,8 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerDocumentation();
-        //Soporte para CORS
-        //Se pueden habilitar: 1-Un dominio, 2-multiples dominios,
-        //3-cualquier dominio (Tener en cuenta seguridad)
-        //Usamos de ejemplo el dominio: http://localhost:3223, se debe cambiar por el correcto
-        //Se usa (*) para todos los dominios
-        builder.Services.AddCors(p => p.AddPolicy("PolicyCors", build =>
-        {
-            build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
-        }));
+        builder.Services.ConfigureCors();
+        builder.Services.AddHttpContextAccessor();
 
         var app = builder.Build();
         // Configure the HTTP request pipeline.
@@ -49,11 +36,11 @@ public class Program
         app.UseHttpsRedirection();
         app.UseSerilogRequestLogging();
         app.UseMiddleware<ExceptionMiddleware>();
-        //Soporte para CORS
-        app.UseCors("PolicyCors");
+        app.UseCustomCors();
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
+        app.MapHealthChecks("/health");
         app.Run();
     } 
 
