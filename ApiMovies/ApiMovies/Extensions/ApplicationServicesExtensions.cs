@@ -4,7 +4,9 @@ using ApiMovies.Core.IRepositorio;
 using ApiMovies.Repositorio;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.IdentityModel.Tokens;
+using System.IO.Compression;
 using System.Text;
 
 namespace ApiMovies.Extensions
@@ -47,5 +49,8 @@ namespace ApiMovies.Extensions
 
         
         }
+
+
+
     }
 }

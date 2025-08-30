@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using ApiMovies.Core.Entities;
 using ApiMovies.Infrastructure.Data;
 using ApiMovies.Infrastructure;
@@ -12,10 +12,11 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        //Soporte para autenticaci�n con .NET Identity
+        //Soporte para autenticación con .NET Identity
         builder.Services.AddIdentity<AppUsuario, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddApplicationServices(builder.Configuration);
         builder.Services.AddPersistence(builder.Configuration);
+        builder.Services.AddCustomResponseCompression();
         builder.Services.AddCustomHealthChecks();
         builder.Host.UseSerilog((context, configuration) =>
         configuration.ReadFrom.Configuration(context.Configuration));
