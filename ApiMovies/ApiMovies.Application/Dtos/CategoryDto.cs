@@ -2,7 +2,7 @@
 
 namespace ApiMovies.Application.Dtos
 {
-    public class CategoriaDto
+    public class CategoryDto
     {
         public int Id { get; set; }
 

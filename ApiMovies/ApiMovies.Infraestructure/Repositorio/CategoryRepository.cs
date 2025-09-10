@@ -5,29 +5,29 @@ using ApiMovies.Infrastructure.Repositorio;
 
 namespace ApiMovies.Repositorio
 {
-    public class CategoriaRepositorio : Repository<Categoria>, ICategoriaRepositorio
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         private readonly ApplicationDbContext _bd;
 
-        public CategoriaRepositorio(ApplicationDbContext bd) : base(bd)
+        public CategoryRepository(ApplicationDbContext bd) : base(bd)
         {
             _bd = bd;
         }
 
-        public bool ActualizarCategoria(Categoria categoria)
+        public bool ActualizarCategoria(Category categoria)
         {
             categoria.FechaCreacion = DateTime.Now;
             _bd.Categoria.Update(categoria);
             return Guardar();
         }
 
-        public bool BorrarCategoria(Categoria categoria)
+        public bool BorrarCategoria(Category categoria)
         {
             _bd.Categoria.Remove(categoria);
             return Guardar();
         }
 
-        public bool CrearCategoria(Categoria categoria)
+        public bool CrearCategoria(Category categoria)
         {
             categoria.FechaCreacion = DateTime.Now;
             _bd.Categoria.Add(categoria);
@@ -45,12 +45,12 @@ namespace ApiMovies.Repositorio
             return _bd.Categoria.Any(c => c.Id == id);
         }
 
-        public Categoria GetCategoria(int categorId)
+        public Category GetCategoria(int categorId)
         {
             return _bd.Categoria.FirstOrDefault(c => c.Id == categorId);
         }
 
-        public ICollection<Categoria> GetCategorias()
+        public ICollection<Category> GetCategorias()
         {
             return _bd.Categoria.OrderBy(c => c.Nombre).ToList();
         }

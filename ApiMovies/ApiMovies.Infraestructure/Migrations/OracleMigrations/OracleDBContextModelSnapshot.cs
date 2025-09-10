@@ -22,7 +22,7 @@ namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ApiMovies.Core.Entities.Categoria", b =>
+            modelBuilder.Entity("ApiMovies.Core.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,16 +33,16 @@ namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("TIMESTAMP(7)");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("ApiMovies.Core.Entities.Pelicula", b =>
+            modelBuilder.Entity("ApiMovies.Core.Entities.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("TIMESTAMP(7)");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
@@ -82,19 +82,19 @@ namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
 
                     b.HasIndex("categoriaId");
 
-                    b.ToTable("Pelicula");
+                    b.ToTable("Movie");
                 });
 
-            modelBuilder.Entity("ApiMovies.Core.Entities.Pelicula", b =>
+            modelBuilder.Entity("ApiMovies.Core.Entities.Movie", b =>
                 {
-                    b.HasOne("ApiMovies.Core.Entities.Categoria", "Categoria")
+                    b.HasOne("ApiMovies.Core.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("categoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Peli_Cat");
 
-                    b.Navigation("Categoria");
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

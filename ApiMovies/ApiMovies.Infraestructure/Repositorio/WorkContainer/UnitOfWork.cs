@@ -10,13 +10,13 @@ namespace ApiMovies.Infrastructure.Repositorio.WorkContainer
         private readonly ApplicationDbContext _db;
         public UnitOfWork( ApplicationDbContext db) {
             _db = db;
-            Categorias = new CategoriaRepositorio(_db);
-            Peliculas = new PeliculaRepositorio(_db);
-            Usuarios = new UsuarioRepositorio(_db,null);
+            Categorias = new CategoryRepository(_db);
+            Peliculas = new MovieRepository(_db);
+            Usuarios = new UserRepository(_db,null);
         }
-        public ICategoriaRepositorio Categorias { get; private set; }
-        public IPeliculaRepositorio Peliculas { get; private set; }
-        public IUsuarioRepositorio Usuarios { get; private set; }
+        public ICategoryRepository Categorias { get; private set; }
+        public IMovieRepository Peliculas { get; private set; }
+        public IUserRepository Usuarios { get; private set; }
         public void Dispose()
         {
             _db.Dispose();

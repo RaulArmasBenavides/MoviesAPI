@@ -16,13 +16,13 @@ namespace ApiMovies.Extensions
 
         public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IPeliculaService, PeliculaService>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
-            services.AddScoped<ICategoriaService, CategoriaSerivce>();
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategorieService>();
 
-            services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
-            services.AddScoped<IPeliculaRepositorio, PeliculaRepositorio>();
-            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddAuthorization(options => options.DefaultPolicy =
             new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build());

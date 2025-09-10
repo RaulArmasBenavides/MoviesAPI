@@ -12,7 +12,7 @@ namespace ApiPeliculas.Migrations
         {
             migrationBuilder.AlterColumn<string>(
                 name: "Estado",
-                table: "Pelicula",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(int),
@@ -24,7 +24,7 @@ namespace ApiPeliculas.Migrations
         {
             migrationBuilder.AlterColumn<int>(
                 name: "Estado",
-                table: "Pelicula",
+                table: "Movie",
                 type: "int",
                 nullable: false,
                 defaultValue: 0,

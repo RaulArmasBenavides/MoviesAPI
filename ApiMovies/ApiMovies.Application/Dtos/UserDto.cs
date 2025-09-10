@@ -1,6 +1,6 @@
 ﻿namespace ApiMovies.Application.Dtos
 {
-    public class UsuarioDto
+    public class UserDto
     {
         public string Id { get; set; }
         public string UserName { get; set; }

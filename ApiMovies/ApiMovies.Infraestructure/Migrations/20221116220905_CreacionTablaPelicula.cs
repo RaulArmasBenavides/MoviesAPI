@@ -12,7 +12,7 @@ namespace ApiPeliculas.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Pelicula",
+                name: "Movie",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -31,14 +31,14 @@ namespace ApiPeliculas.Migrations
                     table.ForeignKey(
                         name: "FK_Pelicula_Categoria_categoriaId",
                         column: x => x.categoriaId,
-                        principalTable: "Categoria",
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pelicula_categoriaId",
-                table: "Pelicula",
+                table: "Movie",
                 column: "categoriaId");
         }
 
@@ -46,7 +46,7 @@ namespace ApiPeliculas.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Pelicula");
+                name: "Movie");
         }
     }
 }

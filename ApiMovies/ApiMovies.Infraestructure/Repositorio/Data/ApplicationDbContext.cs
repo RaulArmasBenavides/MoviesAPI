@@ -9,9 +9,9 @@ namespace ApiMovies.Infrastructure.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<Categoria> Categoria { get; set; }
-        public DbSet<Pelicula> Pelicula { get; set; }
-        //public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Category> Categoria { get; set; }
+        public DbSet<Movie> Pelicula { get; set; }
+        //public DbSet<User> User { get; set; }
         public DbSet<AppUsuario> AppUsuario { get; set; }
     }
 
@@ -19,9 +19,9 @@ namespace ApiMovies.Infrastructure.Data
     //{
     //    public SqlServerContext(DbContextOptions<SqlServerContext> options) : base(options) { }
 
-    //    public DbSet<Categoria> Categoria { get; set; }
-    //    public DbSet<Pelicula> Pelicula { get; set; }
-    //    public DbSet<Usuario> Usuario { get; set; }
+    //    public DbSet<Category> Category { get; set; }
+    //    public DbSet<Movie> Movie { get; set; }
+    //    public DbSet<User> User { get; set; }
     //    public DbSet<AppUsuario> AppUsuario { get; set; }
     //}
 
@@ -31,22 +31,22 @@ namespace ApiMovies.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Pelicula>()
+            modelBuilder.Entity<Movie>()
                 .HasOne(p => p.Categoria)
                 .WithMany()
                 .HasForeignKey(p => p.categoriaId)
                 .HasConstraintName("FK_Peli_Cat");
         }
-        public DbSet<Categoria> Categoria { get; set; }
-        public DbSet<Pelicula> Pelicula { get; set; }
+        public DbSet<Category> Categoria { get; set; }
+        public DbSet<Movie> Pelicula { get; set; }
     }
 
     public class PostgreSqlContext : IdentityDbContext<AppUsuario>
     {
         public PostgreSqlContext(DbContextOptions<PostgreSqlContext> options) : base(options) { }
-        public DbSet<Categoria> Categoria { get; set; }
-        public DbSet<Pelicula> Pelicula { get; set; }
-        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Category> Categoria { get; set; }
+        public DbSet<Movie> Pelicula { get; set; }
+        public DbSet<User> Usuario { get; set; }
         public DbSet<AppUsuario> AppUsuario { get; set; }
 
     }

@@ -9,15 +9,15 @@ namespace ApiPeliculas.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly IUsuarioService _usService;
+        private readonly IUserService usService;
         protected RespuestAPI _respuestaApi;
         private readonly IMapper _mapper;
 
-        public UsuariosController(IUsuarioService usservice, IMapper mapper,IConfiguration config)
+        public UsersController(IUserService usservice, IMapper mapper,IConfiguration config)
         {
-            _usService = usservice;
+            usService = usservice;
             this._respuestaApi = new();
             _mapper = mapper;
         }
@@ -26,7 +26,7 @@ namespace ApiPeliculas.Controllers
         [HttpGet("check-protocol")]
         public IActionResult CheckProtocol()
         {
-            return Ok($"Protocol used: {HttpContext.Request.Protocol}");
+            return Ok($"Protocol used: {this.HttpContext.Request.Protocol}");
         }
 
 
@@ -37,13 +37,13 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetUsuarios()
         {
-            var listaUsuarios = _usService.GetUsuarios();
+            var listaUsuarios = usService.GetUsuarios();
 
-            var listaUsuariosDto = new List<UsuarioDto>();
+            var listaUsuariosDto = new List<UserDto>();
 
             foreach (var lista in listaUsuarios)
             {
-                listaUsuariosDto.Add(_mapper.Map<UsuarioDto>(lista));
+                listaUsuariosDto.Add(_mapper.Map<UserDto>(lista));
             }
             return Ok(listaUsuariosDto);
         }
@@ -57,14 +57,14 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetUsuario(int usuarioId)
         {
-            var itemUsuario = _usService.GetUsuario(usuarioId.ToString());
+            var itemUsuario = usService.GetUsuario(usuarioId.ToString());
 
             if (itemUsuario == null)
             {
                 return NotFound();
             }
 
-            var itemUsuarioDto = _mapper.Map<UsuarioDto>(itemUsuario);
+            var itemUsuarioDto = _mapper.Map<UserDto>(itemUsuario);
             return Ok(itemUsuarioDto);
         }
 
@@ -76,8 +76,8 @@ namespace ApiPeliculas.Controllers
         public async Task<IActionResult> Registro([FromBody] UsuarioRegistroDto usuarioRegistroDto)
         {
 
-            var rptaservice= await _usService.Registro(usuarioRegistroDto);
-            //bool validarNombreUsuarioUnico = _usRepo.IsUniqueUser(usuarioRegistroDto.NombreUsuario);
+            var rptaservice= await usService.Registro(usuarioRegistroDto);
+            //bool validarNombreUsuarioUnico = _usRepo.IsUniqueUser(usuarioRegistroDto.UserName);
             //if (!validarNombreUsuarioUnico)
             //{
             //    _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
@@ -105,14 +105,14 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Login([FromBody] UsuarioLoginDto usuarioLoginDto)
+        public async Task<IActionResult> Login([FromBody] LoginUserDto usuarioLoginDto)
         {
 
             
-            var rptaservice = await _usService.Login(usuarioLoginDto);
+            var rptaservice = await usService.Login(usuarioLoginDto);
             //var respuestaLogin = await _usRepo.Login(usuarioLoginDto);
 
-            //if (respuestaLogin.Usuario == null || string.IsNullOrEmpty(respuestaLogin.Token))
+            //if (respuestaLogin.User == null || string.IsNullOrEmpty(respuestaLogin.Token))
             //{
             //    _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
             //    _respuestaApi.IsSuccess = false;

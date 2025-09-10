@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace ApiMovies.Application.Interfaces
 {
-    public interface ICategoriaService
+    public interface ICategoryService
+
     {
-        Task<APIResponse> CreateCategoryAsync(Categoria category);
-        Task UpdateCategoryAsync(Categoria category);
+        Task<APIResponse> CreateCategoryAsync(Category category);
+        Task UpdateCategoryAsync(Category category);
         Task DeleteCategoryAsync(int id);
-        Categoria GetCategoria(int id);
+        Category GetCategoria(int id);
         IEnumerable<object> GetAllCategories();
-        IEnumerable<Categoria> GetAll();
+        IEnumerable<Category> GetAll();
     }
 }

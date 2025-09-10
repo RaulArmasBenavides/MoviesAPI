@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using ApiMovies.Core.IRepositorio;
 namespace ApiMovies.Application.Services
 {
-    public class UsuarioService : IUsuarioService
+    public class UserService : IUserService
     {
         private readonly IMapper _mapper;
         private readonly UserManager<AppUsuario> _userManager;
@@ -21,7 +21,7 @@ namespace ApiMovies.Application.Services
         private IConfiguration _config;
 
         private readonly RoleManager<IdentityRole> _roleManager;
-        public UsuarioService(IUnitOfWork unitOfWork, IConfiguration config, UserManager<AppUsuario> userManager, IMapper mapper , RoleManager<IdentityRole> roleManager)
+        public UserService(IUnitOfWork unitOfWork, IConfiguration config, UserManager<AppUsuario> userManager, IMapper mapper , RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
 
@@ -32,7 +32,7 @@ namespace ApiMovies.Application.Services
             _roleManager = roleManager;
         }
 
-        public async Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto)
+        public async Task<UsuarioLoginRespuestaDto> Login(LoginUserDto usuarioLoginDto)
         {
             var usuario = _contenedorTrabajo.Usuarios.GetUsuarioByUserName(usuarioLoginDto.NombreUsuario.ToLower());
             bool isValid = await _userManager.CheckPasswordAsync(usuario, usuarioLoginDto.Password);

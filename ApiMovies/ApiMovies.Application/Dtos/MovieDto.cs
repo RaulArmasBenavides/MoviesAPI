@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiMovies.Application.Dtos
 {
-    public class PeliculaDto
+    public class MovieDto
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "El nombre es obligatorio")]

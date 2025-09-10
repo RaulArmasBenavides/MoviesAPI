@@ -12,7 +12,7 @@ namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categoria",
+                name: "Category",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
@@ -26,7 +26,7 @@ namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pelicula",
+                name: "Movie",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
@@ -46,14 +46,14 @@ namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
                     table.ForeignKey(
                         name: "FK_Peli_Cat",
                         column: x => x.categoriaId,
-                        principalTable: "Categoria",
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pelicula_categoriaId",
-                table: "Pelicula",
+                table: "Movie",
                 column: "categoriaId");
         }
 
@@ -61,10 +61,10 @@ namespace ApiMovies.Infrastructure.Migrations.OracleMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Pelicula");
+                name: "Movie");
 
             migrationBuilder.DropTable(
-                name: "Categoria");
+                name: "Category");
         }
     }
 }

@@ -7,18 +7,18 @@ using AutoMapper;
 
 namespace ApiMovies.Application.Services
 {
-    public class CategoriaSerivce : ICategoriaService
+    public class CategorieService : ICategoryService
     {
 
         private readonly IUnitOfWork _contenedorTrabajo;
         private readonly IMapper _mapper;
 
-        public CategoriaSerivce(IUnitOfWork unitOfWork, IMapper mapper)
+        public CategorieService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _contenedorTrabajo = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<APIResponse> CreateCategoryAsync(Categoria category)
+        public async Task<APIResponse> CreateCategoryAsync(Category category)
         {
             _contenedorTrabajo.Categorias.Add(category);
             await _contenedorTrabajo.SaveChangesAsync();
@@ -31,7 +31,7 @@ namespace ApiMovies.Application.Services
             await _contenedorTrabajo.SaveChangesAsync();
         }
 
-        public IEnumerable<Categoria> GetAll()
+        public IEnumerable<Category> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -41,12 +41,12 @@ namespace ApiMovies.Application.Services
            return _contenedorTrabajo.Categorias.GetAll();
         }
          
-        public Categoria GetCategoria(int id)
+        public Category GetCategoria(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task UpdateCategoryAsync(Categoria cat)
+        public async Task UpdateCategoryAsync(Category cat)
         {
             _contenedorTrabajo.Categorias.Update(cat);
             await _contenedorTrabajo.SaveChangesAsync();

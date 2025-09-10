@@ -12,7 +12,7 @@ namespace ApiPeliculas.Migrations
         {
             migrationBuilder.AlterColumn<string>(
                 name: "Role",
-                table: "Usuario",
+                table: "User",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -22,7 +22,7 @@ namespace ApiPeliculas.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "Password",
-                table: "Usuario",
+                table: "User",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -31,8 +31,8 @@ namespace ApiPeliculas.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "NombreUsuario",
-                table: "Usuario",
+                name: "UserName",
+                table: "User",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -41,8 +41,8 @@ namespace ApiPeliculas.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Nombre",
-                table: "Usuario",
+                name: "Name",
+                table: "User",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -52,7 +52,7 @@ namespace ApiPeliculas.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "RutaImagen",
-                table: "Pelicula",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -61,8 +61,8 @@ namespace ApiPeliculas.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Nombre",
-                table: "Pelicula",
+                name: "Name",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -72,7 +72,7 @@ namespace ApiPeliculas.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "Estado",
-                table: "Pelicula",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -82,7 +82,7 @@ namespace ApiPeliculas.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "Descripcion",
-                table: "Pelicula",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -91,7 +91,7 @@ namespace ApiPeliculas.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Nombre",
+                name: "Name",
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -106,7 +106,7 @@ namespace ApiPeliculas.Migrations
         {
             migrationBuilder.AlterColumn<string>(
                 name: "Role",
-                table: "Usuario",
+                table: "User",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -114,23 +114,23 @@ namespace ApiPeliculas.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "Password",
-                table: "Usuario",
+                table: "User",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "NombreUsuario",
-                table: "Usuario",
+                name: "UserName",
+                table: "User",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "Nombre",
-                table: "Usuario",
+                name: "Name",
+                table: "User",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -138,15 +138,15 @@ namespace ApiPeliculas.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "RutaImagen",
-                table: "Pelicula",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "Nombre",
-                table: "Pelicula",
+                name: "Name",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -154,7 +154,7 @@ namespace ApiPeliculas.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "Estado",
-                table: "Pelicula",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -162,14 +162,14 @@ namespace ApiPeliculas.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "Descripcion",
-                table: "Pelicula",
+                table: "Movie",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "Nombre",
+                name: "Name",
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
                 nullable: true,

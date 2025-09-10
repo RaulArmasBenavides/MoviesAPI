@@ -12,7 +12,7 @@ namespace ApiPeliculas.Migrations
         {
             migrationBuilder.AddColumn<int>(
                 name: "Estado",
-                table: "Pelicula",
+                table: "Movie",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
@@ -23,7 +23,7 @@ namespace ApiPeliculas.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Estado",
-                table: "Pelicula");
+                table: "Movie");
         }
     }
 }

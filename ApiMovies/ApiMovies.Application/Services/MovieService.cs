@@ -6,25 +6,25 @@ using ApiMovies.Core.IRepositorio;
 
 namespace ApiMovies.Application.Services
 {
-    public class PeliculaService : IPeliculaService
+    public class MovieService : IMovieService
     {
         private readonly IUnitOfWork _contenedorTrabajo;
         private readonly IMapper _mapper;
 
-        public PeliculaService(IUnitOfWork unitOfWork, IMapper mapper)
+        public MovieService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _contenedorTrabajo = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task CreateMovieAsync(Pelicula pel)
+        public async Task CreateMovieAsync(Movie pel)
         {
              _contenedorTrabajo.Peliculas.Add(pel);
             //_contenedorTrabajo.Save();
             await _contenedorTrabajo.SaveChangesAsync();
         }
 
-        public async Task UpdateMovieAsync(Pelicula pel)
+        public async Task UpdateMovieAsync(Movie pel)
         {
             _contenedorTrabajo.Peliculas.Update(pel);
             await _contenedorTrabajo.SaveChangesAsync();
@@ -32,7 +32,7 @@ namespace ApiMovies.Application.Services
 
         public async Task<bool> DeleteMovieAsync(int id)
         {
-            Pelicula pel = _contenedorTrabajo.Peliculas.Get(id);
+            Movie pel = _contenedorTrabajo.Peliculas.Get(id);
 
             if (pel != null)
             {
@@ -46,11 +46,11 @@ namespace ApiMovies.Application.Services
 
         public IEnumerable<object> GetAllReque()
         {
-            return _contenedorTrabajo.Peliculas.GetPeliculas();
+            return _contenedorTrabajo.Peliculas.GetMovies();
         }
 
 
-        public Pelicula GetPelicula(int id) 
+        public Movie GetPelicula(int id) 
         { 
             return _contenedorTrabajo.Peliculas.Get(id);
         }

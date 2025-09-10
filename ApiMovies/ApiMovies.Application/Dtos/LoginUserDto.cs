@@ -2,7 +2,7 @@
 
 namespace ApiMovies.Application.Dtos
 {
-    public class UsuarioLoginDto
+    public class LoginUserDto
     {
         [Required(ErrorMessage = "El usuario es obligatorio")]
         public string NombreUsuario { get; set; }

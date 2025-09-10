@@ -2,7 +2,8 @@
 
 namespace ApiMovies.Core.Entities
 {
-    public class Pelicula
+    public class Movie
+
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -20,6 +21,6 @@ namespace ApiMovies.Core.Entities
 
         [ForeignKey("categoriaId")]
         public int categoriaId { get; set; }
-        public Categoria Categoria { get; set; }
+        public Category Categoria { get; set; }
     }
 }

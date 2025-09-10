@@ -1,7 +1,4 @@
 ﻿using System.Data;
-//using XAct.Library.Settings;
-//using XAct.Users;
-//using XSystem.Security.Cryptography;
 using ApiMovies.Core.Entities;
 using ApiMovies.Infrastructure.Data;
 using Microsoft.Extensions.Configuration;
@@ -9,13 +6,13 @@ using ApiMovies.Core.IRepositorio;
 
 namespace ApiMovies.Repositorio
 {
-    public class UsuarioRepositorio : IUsuarioRepositorio
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _bd;
         private string claveSecreta;
 
     
-        public UsuarioRepositorio(ApplicationDbContext bd, IConfiguration config)
+        public UserRepository(ApplicationDbContext bd, IConfiguration config)
         {
             _bd = bd;
             claveSecreta = "";//config.GetValue<string>("ApiSettings:Secreta");

@@ -22,7 +22,7 @@ namespace ApiPeliculas.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ApiPeliculas.Modelos.Categoria", b =>
+            modelBuilder.Entity("ApiPeliculas.Modelos.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,13 +33,13 @@ namespace ApiPeliculas.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Category");
                 });
 #pragma warning restore 612, 618
         }

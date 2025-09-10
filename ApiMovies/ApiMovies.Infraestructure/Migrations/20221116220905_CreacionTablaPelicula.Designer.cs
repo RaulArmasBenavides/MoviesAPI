@@ -22,7 +22,7 @@ namespace ApiPeliculas.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ApiPeliculas.Modelos.Categoria", b =>
+            modelBuilder.Entity("ApiPeliculas.Modelos.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,16 +33,16 @@ namespace ApiPeliculas.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("ApiPeliculas.Modelos.Pelicula", b =>
+            modelBuilder.Entity("ApiPeliculas.Modelos.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace ApiPeliculas.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RutaImagen")
@@ -75,18 +75,18 @@ namespace ApiPeliculas.Migrations
 
                     b.HasIndex("categoriaId");
 
-                    b.ToTable("Pelicula");
+                    b.ToTable("Movie");
                 });
 
-            modelBuilder.Entity("ApiPeliculas.Modelos.Pelicula", b =>
+            modelBuilder.Entity("ApiPeliculas.Modelos.Movie", b =>
                 {
-                    b.HasOne("ApiPeliculas.Modelos.Categoria", "Categoria")
+                    b.HasOne("ApiPeliculas.Modelos.Category", "Category")
                         .WithMany()
                         .HasForeignKey("categoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categoria");
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

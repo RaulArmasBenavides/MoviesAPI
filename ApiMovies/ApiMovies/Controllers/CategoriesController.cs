@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiPeliculas.Controllers
 {
 
-    [ApiController]
+    //[ApiController]
     //[Route("api/[controller]")]//Una opción
     [Route("api/categories")]
-    public class CategoriasController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
-        private readonly ICategoriaService _ctService;
+        private readonly ICategoryService _ctService;
         private readonly IMapper _mapper;
 
-        public CategoriasController(ICategoriaService ctService, IMapper mapper)
+        public CategoriesController(ICategoryService ctService, IMapper mapper)
         {
             _ctService = ctService;
             _mapper = mapper;
@@ -29,12 +29,11 @@ namespace ApiPeliculas.Controllers
         public IActionResult GetCategorias() 
         { 
             var listaCategorias = _ctService.GetAllCategories();
-
-            //var listaCategoriasDto = new List<CategoriaDto>();
+            //var listaCategoriasDto = new List<CategoryDto>();
 
             //foreach (var lista in listaCategorias)
             //{
-            //    listaCategoriasDto.Add(_mapper.Map<CategoriaDto>(lista));
+            //    listaCategoriasDto.Add(_mapper.Map<CategoryDto>(lista));
             //}
             return Ok(listaCategorias);
         }
@@ -54,14 +53,14 @@ namespace ApiPeliculas.Controllers
                 return NotFound();
             }
 
-            var itemCategoriaDto = _mapper.Map<CategoriaDto>(itemCategoria);           
+            var itemCategoriaDto = _mapper.Map<CategoryDto>(itemCategoria);           
             return Ok(itemCategoriaDto);
         }
 
         //[Authorize(Roles = "admin")]
         [HttpPost]
         [AllowAnonymous]
-        [ProducesResponseType(201, Type = typeof(CategoriaDto))]
+        [ProducesResponseType(201, Type = typeof(CategoryDto))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -69,13 +68,13 @@ namespace ApiPeliculas.Controllers
         public async Task<IActionResult> CrearCategoria([FromBody] CrearCategoriaDto crearCategoriaDto)
         {
 
-            //if (_ctService.ExisteCategoria(crearCategoriaDto.Nombre))
+            //if (_ctService.ExisteCategoria(crearCategoriaDto.Name))
             //{
             //    ModelState.AddModelError("", "La categoría ya existe");
             //    return StatusCode(404, ModelState);
             //}
 
-            var categoria = _mapper.Map<Categoria>(crearCategoriaDto);
+            var categoria = _mapper.Map<Category>(crearCategoriaDto);
             var responseDto  = await _ctService.CreateCategoryAsync(categoria);
             return Ok(responseDto);
             //return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id }, categoria);
@@ -83,11 +82,11 @@ namespace ApiPeliculas.Controllers
 
         //[Authorize(Roles = "admin")]
         //[HttpPatch("{categoriaId:int}", Name = "ActualizarPatchCategoria")]
-        //[ProducesResponseType(201, Type = typeof(CategoriaDto))]
+        //[ProducesResponseType(201, Type = typeof(CategoryDto))]
         //[ProducesResponseType(StatusCodes.Status204NoContent)]
         //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[ProducesResponseType(StatusCodes.Status400BadRequest)]       
-        //public async Task<IActionResult> ActualizarPatchCategoria(int categoriaId, [FromBody] CategoriaDto categoriaDto)
+        //public async Task<IActionResult> ActualizarPatchCategoria(int categoriaId, [FromBody] CategoryDto categoriaDto)
         //{
         //    if (!ModelState.IsValid)
         //    {
@@ -98,11 +97,11 @@ namespace ApiPeliculas.Controllers
         //        return BadRequest(ModelState);
         //    }         
 
-        //    var categoria = _mapper.Map<Categoria>(categoriaDto);
+        //    var categoria = _mapper.Map<Category>(categoriaDto);
         //    await _ctService.UpdateCategoryAsync(categoria);
         //    //if (!)
         //    //{
-        //    //    ModelState.AddModelError("", $"Algo salió mal actualizando el registro{categoria.Nombre}");
+        //    //    ModelState.AddModelError("", $"Algo salió mal actualizando el registro{categoria.Name}");
         //    //    return StatusCode(500, ModelState);
         //    //}
         //    return NoContent();
@@ -126,7 +125,7 @@ namespace ApiPeliculas.Controllers
 
         //    if (!_ctRepo.BorrarCategoria(categoria))
         //    {
-        //        ModelState.AddModelError("", $"Algo salió mal borrando el registro{categoria.Nombre}");
+        //        ModelState.AddModelError("", $"Algo salió mal borrando el registro{categoria.Name}");
         //        return StatusCode(500, ModelState);
         //    }
         //    return NoContent();

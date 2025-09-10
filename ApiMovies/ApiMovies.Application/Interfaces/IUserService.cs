@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace ApiMovies.Application.Interfaces
 {
-    public interface IUsuarioService
+    public interface IUserService
     {
 
         Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto);
 
-        Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginDto usuarioLoginDto);
+        Task<UsuarioLoginRespuestaDto> Login(LoginUserDto usuarioLoginDto);
 
         ICollection<AppUsuario> GetUsuarios();
 

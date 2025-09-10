@@ -47,7 +47,7 @@ namespace ApiPeliculas.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -91,7 +91,7 @@ namespace ApiPeliculas.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("ApiMovies.Core.Entities.Categoria", b =>
+            modelBuilder.Entity("ApiMovies.Core.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,16 +102,16 @@ namespace ApiPeliculas.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("ApiMovies.Core.Entities.Pelicula", b =>
+            modelBuilder.Entity("ApiMovies.Core.Entities.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,7 +136,7 @@ namespace ApiPeliculas.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -151,10 +151,10 @@ namespace ApiPeliculas.Migrations
 
                     b.HasIndex("categoriaId");
 
-                    b.ToTable("Pelicula");
+                    b.ToTable("Movie");
                 });
 
-            modelBuilder.Entity("ApiMovies.Core.Entities.Usuario", b =>
+            modelBuilder.Entity("ApiMovies.Core.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,11 +162,11 @@ namespace ApiPeliculas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NombreUsuario")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -180,7 +180,7 @@ namespace ApiPeliculas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuario");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -316,15 +316,15 @@ namespace ApiPeliculas.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ApiMovies.Core.Entities.Pelicula", b =>
+            modelBuilder.Entity("ApiMovies.Core.Entities.Movie", b =>
                 {
-                    b.HasOne("ApiMovies.Core.Entities.Categoria", "Categoria")
+                    b.HasOne("ApiMovies.Core.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("categoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categoria");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
