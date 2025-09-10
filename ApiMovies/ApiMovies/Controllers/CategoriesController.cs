@@ -5,20 +5,19 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiPeliculas.Controllers
+namespace ApiMovies.Controllers
 {
 
-    //[ApiController]
-    //[Route("api/[controller]")]//Una opción
-    [Route("api/categories")]
+    [ApiController]
+    [Route("api/[controller]")]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryService _ctService;
+        private readonly ICategoryService ctService;
         private readonly IMapper _mapper;
 
-        public CategoriesController(ICategoryService ctService, IMapper mapper)
+        public CategoriesController(ICategoryService mctService, IMapper mapper)
         {
-            _ctService = ctService;
+            ctService = mctService;
             _mapper = mapper;
         }
 
@@ -26,9 +25,9 @@ namespace ApiPeliculas.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetCategorias() 
+        public IActionResult GetCategories() 
         { 
-            var listaCategorias = _ctService.GetAllCategories();
+            var listaCategorias = this.ctService.GetAllCategories();
             //var listaCategoriasDto = new List<CategoryDto>();
 
             //foreach (var lista in listaCategorias)
@@ -39,14 +38,14 @@ namespace ApiPeliculas.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{categoriaId:int}", Name = "GetCategoria")]
+        [HttpGet("{categoriaId:int}", Name = "GetCategory")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetCategoria(int categoriaId)
+        public IActionResult GetCategory(int categoriaId)
         {
-            var  itemCategoria = _ctService.GetCategoria(categoriaId);
+            var  itemCategoria = this.ctService.GetCategoria(categoriaId);
 
             if (itemCategoria == null)
             {
@@ -75,9 +74,9 @@ namespace ApiPeliculas.Controllers
             //}
 
             var categoria = _mapper.Map<Category>(crearCategoriaDto);
-            var responseDto  = await _ctService.CreateCategoryAsync(categoria);
+            var responseDto  = await this.ctService.CreateCategoryAsync(categoria);
             return Ok(responseDto);
-            //return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id }, categoria);
+            //return CreatedAtRoute("GetCategory", new { categoriaId = categoria.Id }, categoria);
         }
 
         //[Authorize(Roles = "admin")]
@@ -121,7 +120,7 @@ namespace ApiPeliculas.Controllers
         //        return NotFound();
         //    }
 
-        //    var categoria = _ctRepo.GetCategoria(categoriaId);
+        //    var categoria = _ctRepo.GetCategory(categoriaId);
 
         //    if (!_ctRepo.BorrarCategoria(categoria))
         //    {

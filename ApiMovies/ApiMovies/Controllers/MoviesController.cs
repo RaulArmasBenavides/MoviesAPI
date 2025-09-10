@@ -5,7 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiPeliculas.Controllers
+namespace ApiMovies.Controllers
 {
     [Route("api/movies")]
     [ApiController]
@@ -30,7 +30,7 @@ namespace ApiPeliculas.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetPeliculas()
+        public IActionResult GetMovies()
         {
             _logger.Information("test");
             var listaPeliculas = this.movieService.GetAllReque();
@@ -44,14 +44,14 @@ namespace ApiPeliculas.Controllers
             return Ok(listaPeliculasDto);
         }
 
-        [HttpGet("{peliculaId:int}", Name = "GetMovie")]
+        [HttpGet("GetMovie")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetPelicula(int peliculaId)
+        public IActionResult GetMovie([FromQuery] int movieId)
         {
-            var itemPelicula = this.movieService.GetPelicula(peliculaId);
+            var itemPelicula = this.movieService.GetPelicula(movieId);
 
             if (itemPelicula == null)
             {
@@ -114,7 +114,7 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> BorrarPeliculaAsync(int peliculaId)
+        public async Task<IActionResult> DeleteMovieAsync(int peliculaId)
         {
             if (!this.movieService.ExistePelicula(peliculaId))
             {

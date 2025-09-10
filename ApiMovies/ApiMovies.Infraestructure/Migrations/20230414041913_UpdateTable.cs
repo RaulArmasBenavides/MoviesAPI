@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ApiPeliculas.Migrations
+namespace ApiMovies.Migrations
 {
     /// <inheritdoc />
     public partial class UpdateTable : Migration

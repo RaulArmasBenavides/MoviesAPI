@@ -5,7 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiPeliculas.Controllers
+namespace ApiMovies.Controllers
 {
     [Route("api/users")]
     [ApiController]
@@ -35,9 +35,9 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetUsuarios()
+        public IActionResult GetUsers()
         {
-            var listaUsuarios = usService.GetUsuarios();
+            var listaUsuarios = this.usService.GetUsuarios();
 
             var listaUsuariosDto = new List<UserDto>();
 
@@ -49,15 +49,15 @@ namespace ApiPeliculas.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        [HttpGet("{usuarioId:int}", Name = "GetUsuario")]
+        [HttpGet("{usuarioId:int}", Name = "GetUser")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetUsuario(int usuarioId)
+        public IActionResult GetUser(int usuarioId)
         {
-            var itemUsuario = usService.GetUsuario(usuarioId.ToString());
+            var itemUsuario = this.usService.GetUsuario(usuarioId.ToString());
 
             if (itemUsuario == null)
             {
@@ -73,10 +73,10 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Registro([FromBody] UsuarioRegistroDto usuarioRegistroDto)
+        public async Task<IActionResult> CreateUserAsync([FromBody] UsuarioRegistroDto usuarioRegistroDto)
         {
 
-            var rptaservice= await usService.Registro(usuarioRegistroDto);
+            var rptaservice= await this.usService.Registro(usuarioRegistroDto);
             //bool validarNombreUsuarioUnico = _usRepo.IsUniqueUser(usuarioRegistroDto.UserName);
             //if (!validarNombreUsuarioUnico)
             //{
@@ -109,7 +109,7 @@ namespace ApiPeliculas.Controllers
         {
 
             
-            var rptaservice = await usService.Login(usuarioLoginDto);
+            var rptaservice = await this.usService.Login(usuarioLoginDto);
             //var respuestaLogin = await _usRepo.Login(usuarioLoginDto);
 
             //if (respuestaLogin.User == null || string.IsNullOrEmpty(respuestaLogin.Token))

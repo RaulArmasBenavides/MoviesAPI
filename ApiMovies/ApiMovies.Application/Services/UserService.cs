@@ -17,7 +17,7 @@ namespace ApiMovies.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly UserManager<AppUsuario> _userManager;
-        private readonly IUnitOfWork _contenedorTrabajo;
+        private readonly IUnitOfWork contenedorTrabajo;
         private IConfiguration _config;
 
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -26,7 +26,7 @@ namespace ApiMovies.Application.Services
             _userManager = userManager;
 
             _mapper = mapper;
-            _contenedorTrabajo = unitOfWork;
+            contenedorTrabajo = unitOfWork;
             _userManager = userManager;
             _config = config;
             _roleManager = roleManager;
@@ -34,7 +34,7 @@ namespace ApiMovies.Application.Services
 
         public async Task<UsuarioLoginRespuestaDto> Login(LoginUserDto usuarioLoginDto)
         {
-            var usuario = _contenedorTrabajo.Users.GetUsuarioByUserName(usuarioLoginDto.NombreUsuario.ToLower());
+            var usuario = this.contenedorTrabajo.Users.GetUsuarioByUserName(usuarioLoginDto.NombreUsuario.ToLower());
             bool isValid = await _userManager.CheckPasswordAsync(usuario, usuarioLoginDto.Password);
             if (usuario == null || !isValid )
             {
@@ -87,7 +87,7 @@ namespace ApiMovies.Application.Services
                     await _roleManager.CreateAsync(new IdentityRole("registrado"));
                 }
                 await _userManager.AddToRoleAsync(usuario, "admin");
-                var usuarioRetornado = _contenedorTrabajo.Users.GetUsuarioByUserName(usuarioRegistroDto.NombreUsuario);
+                var usuarioRetornado = contenedorTrabajo.Users.GetUsuarioByUserName(usuarioRegistroDto.NombreUsuario);
                 return _mapper.Map<DataUserDto>(usuarioRetornado);
             }
             return new DataUserDto();
@@ -95,12 +95,12 @@ namespace ApiMovies.Application.Services
 
         public  ICollection<AppUsuario> GetUsuarios()
         {
-            return _contenedorTrabajo.Users.GetUsuarios();
+            return this.contenedorTrabajo.Users.GetUsuarios();
         }
 
         public AppUsuario GetUsuario(string id)
         {
-            return _contenedorTrabajo.Users.GetUsuario(id);
+            return this.contenedorTrabajo.Users.GetUsuario(id);
         }
     }
 }

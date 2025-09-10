@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ApiPeliculas.Migrations
+namespace ApiMovies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230319163112_UpdatesTabla")]

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ApiPeliculas.Migrations
+namespace ApiMovies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230703234431_mig")]
