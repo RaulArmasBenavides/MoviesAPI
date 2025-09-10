@@ -20,14 +20,14 @@ namespace ApiMovies.Application.Services
         }
         public async Task<APIResponse> CreateCategoryAsync(Category category)
         {
-            _contenedorTrabajo.Categorias.Add(category);
+            _contenedorTrabajo.Categories.Add(category);
             await _contenedorTrabajo.SaveChangesAsync();
             return new APIResponse(200, "Category created");
         }
 
         public async Task DeleteCategoryAsync(int id)
         {
-            _contenedorTrabajo.Categorias.Remove(id);
+            _contenedorTrabajo.Categories.Remove(id);
             await _contenedorTrabajo.SaveChangesAsync();
         }
 
@@ -38,7 +38,7 @@ namespace ApiMovies.Application.Services
 
         public IEnumerable<object> GetAllCategories()
         {
-           return _contenedorTrabajo.Categorias.GetAll();
+           return _contenedorTrabajo.Categories.GetAll();
         }
          
         public Category GetCategoria(int id)
@@ -48,7 +48,7 @@ namespace ApiMovies.Application.Services
 
         public async Task UpdateCategoryAsync(Category cat)
         {
-            _contenedorTrabajo.Categorias.Update(cat);
+            _contenedorTrabajo.Categories.Update(cat);
             await _contenedorTrabajo.SaveChangesAsync();
         }
     }

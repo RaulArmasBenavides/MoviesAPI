@@ -19,24 +19,24 @@ namespace ApiMovies.Application.Services
 
         public async Task CreateMovieAsync(Movie pel)
         {
-             _contenedorTrabajo.Peliculas.Add(pel);
+             _contenedorTrabajo.Movies.Add(pel);
             //_contenedorTrabajo.Save();
             await _contenedorTrabajo.SaveChangesAsync();
         }
 
         public async Task UpdateMovieAsync(Movie pel)
         {
-            _contenedorTrabajo.Peliculas.Update(pel);
+            _contenedorTrabajo.Movies.Update(pel);
             await _contenedorTrabajo.SaveChangesAsync();
         }
 
         public async Task<bool> DeleteMovieAsync(int id)
         {
-            Movie pel = _contenedorTrabajo.Peliculas.Get(id);
+            Movie pel = _contenedorTrabajo.Movies.Get(id);
 
             if (pel != null)
             {
-                _contenedorTrabajo.Peliculas.Remove(pel);
+                _contenedorTrabajo.Movies.Remove(pel);
                 await _contenedorTrabajo.SaveChangesAsync();
                 return true;
             }
@@ -46,18 +46,18 @@ namespace ApiMovies.Application.Services
 
         public IEnumerable<object> GetAllReque()
         {
-            return _contenedorTrabajo.Peliculas.GetMovies();
+            return _contenedorTrabajo.Movies.GetMovies();
         }
 
 
         public Movie GetPelicula(int id) 
         { 
-            return _contenedorTrabajo.Peliculas.Get(id);
+            return _contenedorTrabajo.Movies.Get(id);
         }
 
         public bool ExistePelicula( int id)
         {
-            return _contenedorTrabajo.Peliculas.Exists(movie => movie.Id == id);
+            return _contenedorTrabajo.Movies.Exists(movie => movie.Id == id);
         }
 
 

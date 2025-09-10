@@ -5,6 +5,6 @@ namespace ApiMovies.Core.Entities
     public class AppUsuario : IdentityUser
     {
 
-        public string Nombre { get; set; }
+        public string Name { get; set; }
     }
 }

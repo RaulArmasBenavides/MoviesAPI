@@ -65,7 +65,7 @@ namespace ApiPeliculas.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CrearCategoria([FromBody] CrearCategoriaDto crearCategoriaDto)
+        public async Task<IActionResult> CrearCategoria([FromBody] CreateCategoryDto crearCategoriaDto)
         {
 
             //if (_ctService.ExisteCategoria(crearCategoriaDto.Name))

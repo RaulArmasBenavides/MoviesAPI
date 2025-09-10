@@ -32,12 +32,12 @@ namespace ApiMovies.Repositorio
 
         public ICollection<AppUsuario> GetUsuarios()
         {
-            return _bd.AppUsuario.OrderBy(c => c.Nombre).ToList();
+            return _bd.AppUsuario.OrderBy(c => c.Name).ToList();
         }
 
         public bool IsUniqueUser(string usuario)
         {
-            var usuariobd = _bd.AppUsuario.FirstOrDefault(u => u.Nombre== usuario);
+            var usuariobd = _bd.AppUsuario.FirstOrDefault(u => u.Name== usuario);
             if (usuariobd == null)
             {
                 return true;

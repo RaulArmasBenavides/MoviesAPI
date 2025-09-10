@@ -10,10 +10,10 @@ namespace ApiMovies.CrossCutting.PeliculasMapper
         public PeliculasMapper()
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
-            CreateMap<Category, CrearCategoriaDto>().ReverseMap();
+            CreateMap<Category, CreateCategoryDto>().ReverseMap();
             CreateMap<Movie, MovieDto>().ReverseMap();
             CreateMap<AppUsuario, UserDto>().ReverseMap();
-            CreateMap<AppUsuario, UsuarioDatosDto>().ReverseMap();
+            CreateMap<AppUsuario, DataUserDto>().ReverseMap();
         }
     }
 }

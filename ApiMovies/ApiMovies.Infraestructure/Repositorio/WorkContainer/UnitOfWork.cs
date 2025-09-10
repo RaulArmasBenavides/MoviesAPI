@@ -7,27 +7,27 @@ namespace ApiMovies.Infrastructure.Repositorio.WorkContainer
     public class UnitOfWork : IUnitOfWork
     {
 
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext db;
         public UnitOfWork( ApplicationDbContext db) {
-            _db = db;
-            Categorias = new CategoryRepository(_db);
-            Peliculas = new MovieRepository(_db);
-            Usuarios = new UserRepository(_db,null);
+            db = db;
+            Categories = new CategoryRepository(db);
+            Movies = new MovieRepository(db);
+            Users = new UserRepository(db, null);
         }
-        public ICategoryRepository Categorias { get; private set; }
-        public IMovieRepository Peliculas { get; private set; }
-        public IUserRepository Usuarios { get; private set; }
+        public ICategoryRepository Categories { get; private set; }
+        public IMovieRepository Movies { get; private set; }
+        public IUserRepository Users { get; private set; }
         public void Dispose()
         {
-            _db.Dispose();
+            db.Dispose();
         }
         public void Save()
         {
-            _db.SaveChanges();
+            db.SaveChanges();
         }
         public Task<int> SaveChangesAsync()
         {
-            return _db.SaveChangesAsync();
+            return db.SaveChangesAsync();
         }
     }
 }

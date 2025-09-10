@@ -34,7 +34,7 @@ namespace ApiMovies.Application.Services
 
         public async Task<UsuarioLoginRespuestaDto> Login(LoginUserDto usuarioLoginDto)
         {
-            var usuario = _contenedorTrabajo.Usuarios.GetUsuarioByUserName(usuarioLoginDto.NombreUsuario.ToLower());
+            var usuario = _contenedorTrabajo.Users.GetUsuarioByUserName(usuarioLoginDto.NombreUsuario.ToLower());
             bool isValid = await _userManager.CheckPasswordAsync(usuario, usuarioLoginDto.Password);
             if (usuario == null || !isValid )
             {
@@ -64,19 +64,19 @@ namespace ApiMovies.Application.Services
             UsuarioLoginRespuestaDto usuarioLoginRespuestaDto = new UsuarioLoginRespuestaDto()
             {
                 Token = manejadorToken.WriteToken(token),
-                Usuario = _mapper.Map<UsuarioDatosDto>(usuario),
+                Usuario = _mapper.Map<DataUserDto>(usuario),
 
             };
             return usuarioLoginRespuestaDto;
         }
-        public async Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto)
+        public async Task<DataUserDto> Registro(UsuarioRegistroDto usuarioRegistroDto)
         {
             AppUsuario usuario = new()
             {
                 UserName = usuarioRegistroDto.NombreUsuario,
                 Email = usuarioRegistroDto.NombreUsuario,
                 NormalizedEmail = usuarioRegistroDto.NombreUsuario.ToUpper(),
-                Nombre = usuarioRegistroDto.Nombre
+                Name = usuarioRegistroDto.Nombre
             };
             var result = await _userManager.CreateAsync(usuario, usuarioRegistroDto.Password);
             if (result.Succeeded)
@@ -87,20 +87,20 @@ namespace ApiMovies.Application.Services
                     await _roleManager.CreateAsync(new IdentityRole("registrado"));
                 }
                 await _userManager.AddToRoleAsync(usuario, "admin");
-                var usuarioRetornado = _contenedorTrabajo.Usuarios.GetUsuarioByUserName(usuarioRegistroDto.NombreUsuario);
-                return _mapper.Map<UsuarioDatosDto>(usuarioRetornado);
+                var usuarioRetornado = _contenedorTrabajo.Users.GetUsuarioByUserName(usuarioRegistroDto.NombreUsuario);
+                return _mapper.Map<DataUserDto>(usuarioRetornado);
             }
-            return new UsuarioDatosDto();
+            return new DataUserDto();
         }
 
         public  ICollection<AppUsuario> GetUsuarios()
         {
-            return _contenedorTrabajo.Usuarios.GetUsuarios();
+            return _contenedorTrabajo.Users.GetUsuarios();
         }
 
         public AppUsuario GetUsuario(string id)
         {
-            return _contenedorTrabajo.Usuarios.GetUsuario(id);
+            return _contenedorTrabajo.Users.GetUsuario(id);
         }
     }
 }

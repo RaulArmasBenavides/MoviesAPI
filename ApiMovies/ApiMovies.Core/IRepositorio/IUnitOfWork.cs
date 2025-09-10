@@ -4,9 +4,9 @@ namespace ApiMovies.Core.IRepositorio
 {
     public interface IUnitOfWork : IDisposable
     {
-        ICategoryRepository Categorias { get; }
-        IMovieRepository Peliculas { get; }
-        IUserRepository Usuarios { get; }
+        ICategoryRepository Categories { get; }
+        IMovieRepository Movies { get; }
+        IUserRepository Users { get; }
         void Save();
         Task<int> SaveChangesAsync();
     }

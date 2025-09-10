@@ -11,7 +11,7 @@ namespace ApiMovies.Application.Interfaces
     public interface IUserService
     {
 
-        Task<UsuarioDatosDto> Registro(UsuarioRegistroDto usuarioRegistroDto);
+        Task<DataUserDto> Registro(UsuarioRegistroDto usuarioRegistroDto);
 
         Task<UsuarioLoginRespuestaDto> Login(LoginUserDto usuarioLoginDto);
 
