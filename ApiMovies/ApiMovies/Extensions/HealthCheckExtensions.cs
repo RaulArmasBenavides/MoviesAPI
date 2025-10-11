@@ -1,5 +1,4 @@
-﻿using ApiMovies.Extensions;
-using Microsoft.AspNetCore.ResponseCompression;
+﻿using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.IO.Compression;
 
@@ -26,7 +25,7 @@ namespace ApiMovies.Extensions
 
                 options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
                 {
-                    "application/json"
+                    "application/json",
                 });
             });
 
