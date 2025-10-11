@@ -45,7 +45,7 @@ namespace ApiMovies.Application.Services
                 };
             }
             //Aquí existe el usuario entonces podemos procesar el login
-            var roles = await _userManager.GetRolesAsync(usuario);
+            var roles = await this._userManager.GetRolesAsync(usuario);
             var manejadorToken = new JwtSecurityTokenHandler();
             string keyconfig = _config.GetSection("ApiSettings:Secreta").Value.ToString();
             //string key2 = _config.GetValue<string>("ApiSettings:Secreta");
@@ -76,9 +76,9 @@ namespace ApiMovies.Application.Services
                 UserName = usuarioRegistroDto.NombreUsuario,
                 Email = usuarioRegistroDto.NombreUsuario,
                 NormalizedEmail = usuarioRegistroDto.NombreUsuario.ToUpper(),
-                Name = usuarioRegistroDto.Nombre
+                Name = usuarioRegistroDto.Nombre,
             };
-            var result = await _userManager.CreateAsync(usuario, usuarioRegistroDto.Password);
+            var result = await this._userManager.CreateAsync(usuario, usuarioRegistroDto.Password);
             if (result.Succeeded)
             {
                 if (!_roleManager.RoleExistsAsync("admin").GetAwaiter().GetResult())
@@ -86,8 +86,8 @@ namespace ApiMovies.Application.Services
                     await _roleManager.CreateAsync(new IdentityRole("admin"));
                     await _roleManager.CreateAsync(new IdentityRole("registrado"));
                 }
-                await _userManager.AddToRoleAsync(usuario, "admin");
-                var usuarioRetornado = contenedorTrabajo.Users.GetUsuarioByUserName(usuarioRegistroDto.NombreUsuario);
+                await this._userManager.AddToRoleAsync(usuario, "admin");
+                var usuarioRetornado = this.contenedorTrabajo.Users.GetUsuarioByUserName(usuarioRegistroDto.NombreUsuario);
                 return _mapper.Map<DataUserDto>(usuarioRetornado);
             }
             return new DataUserDto();

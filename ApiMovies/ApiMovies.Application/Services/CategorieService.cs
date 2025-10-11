@@ -10,25 +10,25 @@ namespace ApiMovies.Application.Services
     public class CategorieService : ICategoryService
     {
 
-        private readonly IUnitOfWork _contenedorTrabajo;
+        private readonly IUnitOfWork contenedorTrabajo;
         private readonly IMapper _mapper;
 
         public CategorieService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _contenedorTrabajo = unitOfWork;
+            this.contenedorTrabajo = unitOfWork;
             _mapper = mapper;
         }
         public async Task<APIResponse> CreateCategoryAsync(Category category)
         {
-            _contenedorTrabajo.Categories.Add(category);
-            await _contenedorTrabajo.SaveChangesAsync();
+            this.contenedorTrabajo.Categories.Add(category);
+            await this.contenedorTrabajo.SaveChangesAsync();
             return new APIResponse(200, "Category created");
         }
 
         public async Task DeleteCategoryAsync(int id)
         {
-            _contenedorTrabajo.Categories.Remove(id);
-            await _contenedorTrabajo.SaveChangesAsync();
+            this.contenedorTrabajo.Categories.Remove(id);
+            await this.contenedorTrabajo.SaveChangesAsync();
         }
 
         public IEnumerable<Category> GetAll()
@@ -38,7 +38,7 @@ namespace ApiMovies.Application.Services
 
         public IEnumerable<object> GetAllCategories()
         {
-           return _contenedorTrabajo.Categories.GetAll();
+           return this.contenedorTrabajo.Categories.GetAll();
         }
          
         public Category GetCategoria(int id)
@@ -48,8 +48,8 @@ namespace ApiMovies.Application.Services
 
         public async Task UpdateCategoryAsync(Category cat)
         {
-            _contenedorTrabajo.Categories.Update(cat);
-            await _contenedorTrabajo.SaveChangesAsync();
+            this.contenedorTrabajo.Categories.Update(cat);
+            await this.contenedorTrabajo.SaveChangesAsync();
         }
     }
 }

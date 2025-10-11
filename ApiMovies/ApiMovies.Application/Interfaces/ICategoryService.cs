@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace ApiMovies.Application.Interfaces
 {
     public interface ICategoryService
-
     {
         Task<APIResponse> CreateCategoryAsync(Category category);
         Task UpdateCategoryAsync(Category category);
