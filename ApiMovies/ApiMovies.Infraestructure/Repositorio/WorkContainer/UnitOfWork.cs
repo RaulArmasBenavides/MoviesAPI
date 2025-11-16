@@ -8,11 +8,11 @@ namespace ApiMovies.Infrastructure.Repositorio.WorkContainer
     {
 
         private readonly ApplicationDbContext db;
-        public UnitOfWork( ApplicationDbContext db) {
-            db = db;
-            Categories = new CategoryRepository(db);
-            Movies = new MovieRepository(db);
-            Users = new UserRepository(db, null);
+        public UnitOfWork( ApplicationDbContext mdb) {
+            db = mdb;
+            Categories = new CategoryRepository(mdb);
+            Movies = new MovieRepository(mdb);
+            Users = new UserRepository(mdb, null);
         }
         public ICategoryRepository Categories { get; private set; }
         public IMovieRepository Movies { get; private set; }

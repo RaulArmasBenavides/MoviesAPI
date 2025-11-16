@@ -9,7 +9,7 @@ namespace ApiMovies.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService ctService;

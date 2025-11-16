@@ -18,11 +18,11 @@ namespace ApiMovies.Infrastructure
                   ServiceLifetime.Scoped);
 
             // Configuración para Oracle
-            services.AddDbContext<OracleDBContext>(options =>
-                options.UseOracle(
-                    configuration.GetConnectionString("ConexionOracle"),
-                    b => b.MigrationsAssembly(typeof(OracleDBContext).Assembly.FullName)),
-                ServiceLifetime.Scoped);
+            //services.AddDbContext<OracleDBContext>(options =>
+            //    options.UseOracle(
+            //        configuration.GetConnectionString("ConexionOracle"),
+            //        b => b.MigrationsAssembly(typeof(OracleDBContext).Assembly.FullName)),
+            //    ServiceLifetime.Scoped);
 
             // Configuración para PostgreSQL
             //services.AddDbContext<PostgreSqlContext>(options =>

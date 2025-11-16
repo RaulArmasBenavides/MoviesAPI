@@ -10,9 +10,9 @@ namespace ApiMovies.Repositorio
     {
         private readonly ApplicationDbContext bd;
 
-        public MovieRepository(ApplicationDbContext bd) : base(bd)
+        public MovieRepository(ApplicationDbContext mbd) : base(mbd)
         {
-            bd = bd;
+            bd = mbd;
         }
         public ICollection<Movie> SearchMovie(string nombre)
         {

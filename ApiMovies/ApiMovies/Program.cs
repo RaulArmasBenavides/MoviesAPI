@@ -34,7 +34,7 @@ public class Program
         {
             app.UseSwaggerGen();
         }
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
         app.UseSerilogRequestLogging();
         app.UseMiddleware<ExceptionMiddleware>();
         app.UseCustomCors();
