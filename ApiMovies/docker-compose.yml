@@ -6,7 +6,7 @@ services:
     image: ${DOCKER_REGISTRY-}movies
     build:
       context: .        
-      dockerfile: Dockerfile
+      dockerfile: ApiMovies/Dockerfile
     ports:
       - "8000:80"
     environment:

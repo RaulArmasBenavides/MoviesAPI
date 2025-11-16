@@ -11,7 +11,7 @@ COPY ["ApiMovies.CrossCutting/ApiMovies.CrossCutting.csproj", "ApiMovies.CrossCu
 # Restaura SOLO el proyecto web (evitas el .dcproj)
 RUN dotnet restore "ApiMovies/ApiMovies.csproj"
 
-# Copia el resto del cÃ³digo
+# Copia el resto del código
 COPY . .
 
 # Limpia bin/obj que vengan del host (evita errores raros)
