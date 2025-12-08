@@ -47,8 +47,8 @@ namespace ApiMovies.Middlewares
                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                 var response = _hostEnvironment.IsDevelopment() ?
-                    new APIException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
-                    : new APIException((int)HttpStatusCode.InternalServerError);
+                    new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
+                    : new ApiException((int)HttpStatusCode.InternalServerError);
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 var json = JsonSerializer.Serialize(response, options);

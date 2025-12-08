@@ -1,8 +1,8 @@
 ﻿namespace ApiMovies.Application.Dtos.Response
 {
-    public class APIException : APIResponse
+    public class ApiException : ApiResponse
     {
-        public APIException(int StatusCode, string message = null, string details = null) : base(StatusCode, message)
+        public ApiException(int StatusCode, string message = null, string details = null) : base(StatusCode, message)
         {
             details = Details;
         }

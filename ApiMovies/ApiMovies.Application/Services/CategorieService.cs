@@ -18,11 +18,11 @@ namespace ApiMovies.Application.Services
             this.contenedorTrabajo = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<APIResponse> CreateCategoryAsync(Category category)
+        public async Task<ApiResponse> CreateCategoryAsync(Category category)
         {
             this.contenedorTrabajo.Categories.Add(category);
             await this.contenedorTrabajo.SaveChangesAsync();
-            return new APIResponse(200, "Category created");
+            return new ApiResponse(200, "Category created");
         }
 
         public async Task DeleteCategoryAsync(int id)

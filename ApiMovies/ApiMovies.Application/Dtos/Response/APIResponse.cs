@@ -1,14 +1,18 @@
 ﻿namespace ApiMovies.Application.Dtos.Response
 {
-    public class APIResponse
+
+    /// <summary>
+    /// Api Response generic
+    /// </summary>
+    public class ApiResponse
     {
         public int StatusCode { get; set; }
         public string Message { get; set; }
 
-        public APIResponse(int StatusCode, string message = null)
+        public ApiResponse(int StatusCode, string message = null)
         {
             this.StatusCode = StatusCode;
-            Message = message ?? DefaultStatusCodeMessage(StatusCode);
+            this.Message = message ?? this.DefaultStatusCodeMessage(StatusCode);
         }
         private string DefaultStatusCodeMessage(int StatusCode)
         {
