@@ -1,4 +1,5 @@
 ﻿using ApiMovies.Core.Entities;
+using ApiMovies.CrossCutting;
 
 namespace ApiMovies.Core.IRepositorio
 {
@@ -9,5 +10,7 @@ namespace ApiMovies.Core.IRepositorio
         ICollection<Movie> GetPeliculasEnCategoria(int catId);
         ICollection<Movie> SearchMovie(string nombre);
         bool Save();
+
+        PagedResult<Movie> GetMovies(int skip, int take);
     }
 }

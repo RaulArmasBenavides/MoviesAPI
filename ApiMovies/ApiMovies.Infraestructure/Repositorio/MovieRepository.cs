@@ -1,5 +1,6 @@
 ﻿using ApiMovies.Core.Entities;
 using ApiMovies.Core.IRepositorio;
+using ApiMovies.CrossCutting;
 using ApiMovies.Infrastructure.Data;
 using ApiMovies.Infrastructure.Repositorio;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,26 @@ namespace ApiMovies.Repositorio
         public ICollection<Movie> GetMovies()
         {
             return bd.Pelicula.OrderBy(c => c.Nombre).ToList();
+        }
+
+
+        public PagedResult<Movie> GetMovies(int skip, int take)
+        {
+            var query = bd.Pelicula.AsQueryable();
+
+            var total = query.Count();
+
+            var items = query
+                .OrderBy(c => c.Nombre)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+
+            return new PagedResult<Movie>
+            {
+                Items = items,
+                TotalRows = total
+            };
         }
 
         public ICollection<Movie> GetPeliculasEnCategoria(int catId)

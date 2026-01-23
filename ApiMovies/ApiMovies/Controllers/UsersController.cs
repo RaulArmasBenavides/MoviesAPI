@@ -12,13 +12,13 @@ namespace ApiMovies.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService usService;
-        protected RespuestAPI _respuestaApi;
+   
         private readonly IMapper _mapper;
 
         public UsersController(IUserService usservice, IMapper mapper,IConfiguration config)
         {
             usService = usservice;
-            this._respuestaApi = new();
+ 
             _mapper = mapper;
         }
 

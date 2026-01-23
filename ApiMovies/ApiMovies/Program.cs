@@ -1,14 +1,27 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ApiMovies.Application.Dtos;
 using ApiMovies.Core.Entities;
-using ApiMovies.Infrastructure.Data;
-using ApiMovies.Infrastructure;
-using Serilog;
-using ApiMovies.Middlewares;
-using ApiMovies.CrossCutting.PeliculasMapper;
+ 
 using ApiMovies.Extensions;
+using ApiMovies.Infrastructure;
+using ApiMovies.Infrastructure.Data;
+using ApiMovies.Middlewares;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Serilog;
 
 public class Program
 {
+    public class PeliculasMapper : Profile
+    {
+        public PeliculasMapper()
+        {
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Category, CreateCategoryDto>().ReverseMap();
+            CreateMap<Movie, MovieDto>().ReverseMap();
+            CreateMap<AppUsuario, UserDto>().ReverseMap();
+            CreateMap<AppUsuario, DataUserDto>().ReverseMap();
+        }
+    }
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +33,7 @@ public class Program
         builder.Services.AddCustomHealthChecks();
         builder.Host.UseSerilog((context, configuration) =>
         configuration.ReadFrom.Configuration(context.Configuration));
+
         builder.Services.AddAutoMapper(typeof(PeliculasMapper));
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

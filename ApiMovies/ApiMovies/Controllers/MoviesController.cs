@@ -1,6 +1,7 @@
 ﻿using ApiMovies.Application.Dtos;
 using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
+using ApiMovies.CrossCutting;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,22 +27,18 @@ namespace ApiMovies.Controllers
             _environment = environment;
         }
 
+
+
         [AllowAnonymous]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetMovies()
+        public ActionResult<ApiResponse<PagedResult<MovieDto>>> GetMovies([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
         {
-            _logger.Information("test");
-            var listaPeliculas = this.movieService.GetAllReque();
+            var resp = this.movieService.GetAllReque(page, pageSize);
 
-            var listaPeliculasDto = new List<MovieDto>();
+            if (!resp.Success)
+                return StatusCode(StatusCodes.Status500InternalServerError, resp);
 
-            foreach (var lista in listaPeliculas)
-            {
-                listaPeliculasDto.Add(_mapper.Map<MovieDto>(lista));
-            }
-            return Ok(listaPeliculasDto);
+            return Ok(resp);
         }
 
         [HttpGet("GetMovie")]

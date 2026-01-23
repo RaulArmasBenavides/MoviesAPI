@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>c0a8807a-1daa-4d8b-8003-3d4d576d6ee7</UserSecretsId>
@@ -32,7 +32,6 @@
     <ProjectReference Include="..\ApiMovies.Application\ApiMovies.Application.csproj" />
     <ProjectReference Include="..\ApiMovies.Core\ApiMovies.Core.csproj" />
     <ProjectReference Include="..\ApiMovies.CrossCutting\ApiMovies.CrossCutting.csproj" />
-    <ProjectReference Include="..\ApiMovies.Infraestructure\ApiMovies.Infrastructure.csproj" />
   </ItemGroup>
   <!-- Script Creado por Raúl Armas-->
   <Target Name="AssemblyVersion" BeforeTargets="CoreCompile" DependsOnTargets="PrepareForBuild">

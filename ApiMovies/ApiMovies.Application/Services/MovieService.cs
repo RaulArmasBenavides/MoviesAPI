@@ -1,8 +1,10 @@
-﻿using ApiMovies.Application.Interfaces;
-using ApiMovies.Infrastructure.Repositorio.WorkContainer;
-using AutoMapper;
+﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using ApiMovies.Core.IRepositorio;
+using ApiMovies.CrossCutting;
+ 
+using AutoMapper;
 
 namespace ApiMovies.Application.Services
 {
@@ -20,7 +22,6 @@ namespace ApiMovies.Application.Services
         public async Task CreateMovieAsync(Movie pel)
         {
             this.contenedorTrabajo.Movies.Add(pel);
-            //_contenedorTrabajo.Save();
             await this.contenedorTrabajo.SaveChangesAsync();
         }
 
@@ -44,10 +45,58 @@ namespace ApiMovies.Application.Services
             return false;
         }
 
-        public IEnumerable<object> GetAllReque()
+        public IEnumerable<Movie> GetAllReque()
         {
             return this.contenedorTrabajo.Movies.GetMovies();
         }
+
+        public ApiResponse<PagedResult<MovieDto>> GetAllReque(int page, int pageSize)
+        {
+            if (page < 1) page = 1;
+            if (pageSize < 1) pageSize = 20;
+            if (pageSize > 100) pageSize = 100;
+
+            try
+            {
+                var skip = (page - 1) * pageSize;
+                var result = this.contenedorTrabajo.Movies.GetMovies(skip, pageSize);  
+
+                // Mapeo manual Movie -> MovieDto
+                var dtoItems = result.Items.Select(m => new MovieDto
+                {
+                    // Ajusta estos campos a tu Movie/MovieDto reales
+                    Id = m.Id,
+                    Nombre = m.Nombre,
+                    // Descripcion = m.Descripcion,
+                    // FechaEstreno = m.FechaEstreno,
+                    // ...
+                }).ToList();
+
+                var dtoPaged = new PagedResult<MovieDto>
+                {
+                    Items = dtoItems,
+                    TotalRows = result.TotalRows,
+                };
+
+                return new ApiResponse<PagedResult<MovieDto>>
+                {
+                    Success = true,
+                    Data = dtoPaged,
+                    Message = "OK",
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<PagedResult<MovieDto>>
+                {
+                    Success = false,
+                    Data = null,
+                    Message = $"Error al obtener películas: {ex.Message}",
+                };
+            }
+        }
+
+
         public Movie GetPelicula(int id) 
         { 
             return this.contenedorTrabajo.Movies.Get(id);

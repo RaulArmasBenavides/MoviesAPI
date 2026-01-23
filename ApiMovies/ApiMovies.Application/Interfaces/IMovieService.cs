@@ -1,4 +1,6 @@
-﻿using ApiMovies.Core.Entities;
+﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Core.Entities;
+using ApiMovies.CrossCutting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,10 @@ namespace ApiMovies.Application.Interfaces
         Task CreateMovieAsync(Movie pel);
         Task UpdateMovieAsync(Movie pel);
         Task<bool> DeleteMovieAsync(int id);
-        IEnumerable<object> GetAllReque();
+        IEnumerable<Movie> GetAllReque();
         Movie GetPelicula(int id);
         bool ExistePelicula(int id);
+
+        ApiResponse<PagedResult<MovieDto>> GetAllReque(int page, int pageSize);
     }
 }
