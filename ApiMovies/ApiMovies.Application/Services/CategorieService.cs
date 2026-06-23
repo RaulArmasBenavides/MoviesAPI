@@ -1,4 +1,5 @@
-﻿using ApiMovies.Application.Dtos.Response;
+﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Application.Dtos.Response;
 using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using ApiMovies.Core.IRepositorio;
@@ -50,6 +51,37 @@ namespace ApiMovies.Application.Services
         {
             this.contenedorTrabajo.Categories.Update(cat);
             await this.contenedorTrabajo.SaveChangesAsync();
+        }
+
+        public PaginatedResponseDto<CategoryDto> GetCategoriesPaginado(CategoryFilterDto filter)
+        {
+            var categorias = this.contenedorTrabajo.Categories.GetAll().AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(filter.SearchTerm))
+            {
+                categorias = categorias.Where(c =>
+                    c.Nombre.Contains(filter.SearchTerm, StringComparison.OrdinalIgnoreCase));
+            }
+
+            var categoriasList = categorias.ToList();
+            int totalCount = categoriasList.Count;
+
+            categoriasList = filter.OrderBy?.ToLower() switch
+            {
+                "date" => categoriasList.OrderByDescending(c => c.FechaCreacion).ToList(),
+                "name" or _ => categoriasList.OrderBy(c => c.Nombre).ToList()
+            };
+
+            var categoriasPaginadas = categoriasList
+                .Skip(filter.Offset)
+                .Take(filter.Limit)
+                .ToList();
+
+            var categoriasDto = categoriasPaginadas
+                .Select(c => _mapper.Map<CategoryDto>(c))
+                .ToList();
+
+            return new PaginatedResponseDto<CategoryDto>(categoriasDto, totalCount, filter.Offset, filter.Limit);
         }
     }
 }

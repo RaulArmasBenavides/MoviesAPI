@@ -35,17 +35,10 @@ namespace ApiMovies.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers([FromQuery] int offset = 0, [FromQuery] int limit = 10)
         {
-            var listaUsuarios = this.usService.GetUsuarios();
-
-            var listaUsuariosDto = new List<UserDto>();
-
-            foreach (var lista in listaUsuarios)
-            {
-                listaUsuariosDto.Add(_mapper.Map<UserDto>(lista));
-            }
-            return Ok(listaUsuariosDto);
+            var resultado = this.usService.GetUsuariosPaginado(offset, limit);
+            return Ok(resultado);
         }
 
         [Authorize(Roles = "admin")]

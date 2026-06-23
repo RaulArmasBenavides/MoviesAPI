@@ -19,5 +19,6 @@ namespace ApiMovies.Application.Interfaces
         bool ExistePelicula(int id);
 
         ApiResponse<PagedResult<MovieDto>> GetAllReque(int page, int pageSize);
+        PaginatedResponseDto<MovieDto> GetMoviesPaginado(MovieFilterDto filter);
     }
 }

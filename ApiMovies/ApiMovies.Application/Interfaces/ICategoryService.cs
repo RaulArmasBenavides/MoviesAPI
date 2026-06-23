@@ -1,4 +1,5 @@
-﻿using ApiMovies.Application.Dtos.Response;
+﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Application.Dtos.Response;
 using ApiMovies.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace ApiMovies.Application.Interfaces
         Category GetCategoria(int id);
         IEnumerable<object> GetAllCategories();
         IEnumerable<Category> GetAll();
+        PaginatedResponseDto<CategoryDto> GetCategoriesPaginado(CategoryFilterDto filter);
     }
 }

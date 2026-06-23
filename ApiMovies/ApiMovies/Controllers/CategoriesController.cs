@@ -25,16 +25,22 @@ namespace ApiMovies.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetCategories() 
-        { 
-            var listaCategorias = this.ctService.GetAllCategories();
-            //var listaCategoriasDto = new List<CategoryDto>();
+        public IActionResult GetCategories(
+            [FromQuery] string searchTerm = "",
+            [FromQuery] string orderBy = "name",
+            [FromQuery] int offset = 0,
+            [FromQuery] int limit = 10)
+        {
+            var filter = new CategoryFilterDto
+            {
+                SearchTerm = searchTerm,
+                OrderBy = orderBy,
+                Offset = offset,
+                Limit = limit
+            };
 
-            //foreach (var lista in listaCategorias)
-            //{
-            //    listaCategoriasDto.Add(_mapper.Map<CategoryDto>(lista));
-            //}
-            return Ok(listaCategorias);
+            var resultado = this.ctService.GetCategoriesPaginado(filter);
+            return Ok(resultado);
         }
 
         [AllowAnonymous]

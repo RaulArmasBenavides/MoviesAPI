@@ -17,6 +17,8 @@ namespace ApiMovies.Application.Interfaces
 
         ICollection<AppUsuario> GetUsuarios();
 
+        PaginatedResponseDto<UserDto> GetUsuariosPaginado(int offset = 0, int limit = 10);
+
         AppUsuario GetUsuario(string id);
     }
 }

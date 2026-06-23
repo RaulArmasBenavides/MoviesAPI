@@ -98,6 +98,23 @@ namespace ApiMovies.Application.Services
             return this.contenedorTrabajo.Users.GetUsuarios();
         }
 
+        public PaginatedResponseDto<UserDto> GetUsuariosPaginado(int offset = 0, int limit = 10)
+        {
+            var usuarios = this.contenedorTrabajo.Users.GetUsuarios();
+            int totalCount = usuarios.Count;
+
+            var usuariosPaginados = usuarios
+                .Skip(offset)
+                .Take(limit)
+                .ToList();
+
+            var usuariosDto = usuariosPaginados
+                .Select(u => _mapper.Map<UserDto>(u))
+                .ToList();
+
+            return new PaginatedResponseDto<UserDto>(usuariosDto, totalCount, offset, limit);
+        }
+
         public AppUsuario GetUsuario(string id)
         {
             return this.contenedorTrabajo.Users.GetUsuario(id);

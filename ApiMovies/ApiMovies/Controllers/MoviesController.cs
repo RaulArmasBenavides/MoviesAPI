@@ -41,6 +41,32 @@ namespace ApiMovies.Controllers
             return Ok(resp);
         }
 
+        [AllowAnonymous]
+        [HttpGet("filtrado")]
+        public ActionResult<PaginatedResponseDto<MovieDto>> GetMoviesFiltrado(
+            [FromQuery] string searchTerm = "",
+            [FromQuery] string clasificacion = "",
+            [FromQuery] string estado = "",
+            [FromQuery] int? categoriaId = null,
+            [FromQuery] string orderBy = "name",
+            [FromQuery] int offset = 0,
+            [FromQuery] int limit = 10)
+        {
+            var filter = new MovieFilterDto
+            {
+                SearchTerm = searchTerm,
+                Clasificacion = clasificacion,
+                Estado = estado,
+                CategoriaId = categoriaId,
+                OrderBy = orderBy,
+                Offset = offset,
+                Limit = limit
+            };
+
+            var resultado = this.movieService.GetMoviesPaginado(filter);
+            return Ok(resultado);
+        }
+
         [HttpGet("GetMovie")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]

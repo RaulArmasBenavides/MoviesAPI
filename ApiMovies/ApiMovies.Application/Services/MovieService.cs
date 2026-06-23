@@ -106,5 +106,53 @@ namespace ApiMovies.Application.Services
         {
             return this.contenedorTrabajo.Movies.Exists(movie => movie.Id == id);
         }
+
+        public PaginatedResponseDto<MovieDto> GetMoviesPaginado(MovieFilterDto filter)
+        {
+            var movies = this.contenedorTrabajo.Movies.GetMovies().AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(filter.SearchTerm))
+            {
+                movies = movies.Where(m =>
+                    m.Nombre.Contains(filter.SearchTerm, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.Clasificacion))
+            {
+                movies = movies.Where(m =>
+                    m.Clasificacion.ToString().Equals(filter.Clasificacion, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.Estado))
+            {
+                movies = movies.Where(m =>
+                    m.Estado.Contains(filter.Estado, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (filter.CategoriaId.HasValue)
+            {
+                movies = movies.Where(m => m.categoriaId == filter.CategoriaId.Value);
+            }
+
+            var moviesList = movies.ToList();
+            int totalCount = moviesList.Count;
+
+            moviesList = filter.OrderBy?.ToLower() switch
+            {
+                "date" => moviesList.OrderByDescending(m => m.FechaCreacion).ToList(),
+                "name" or _ => moviesList.OrderBy(m => m.Nombre).ToList()
+            };
+
+            var moviesPaginadas = moviesList
+                .Skip(filter.Offset)
+                .Take(filter.Limit)
+                .ToList();
+
+            var moviesDto = moviesPaginadas
+                .Select(m => _mapper.Map<MovieDto>(m))
+                .ToList();
+
+            return new PaginatedResponseDto<MovieDto>(moviesDto, totalCount, filter.Offset, filter.Limit);
+        }
     }
 }
