@@ -1,4 +1,5 @@
 ﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Application.Dtos.Import;
 using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using AutoMapper;
@@ -12,14 +13,14 @@ namespace ApiMovies.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService usService;
-   
         private readonly IMapper _mapper;
+        private readonly IExcelService _excelService;
 
-        public UsersController(IUserService usservice, IMapper mapper,IConfiguration config)
+        public UsersController(IUserService usservice, IMapper mapper, IConfiguration config, IExcelService excelService)
         {
             usService = usservice;
- 
             _mapper = mapper;
+            _excelService = excelService;
         }
 
         [AllowAnonymous]
@@ -101,7 +102,7 @@ namespace ApiMovies.Controllers
         public async Task<IActionResult> Login([FromBody] LoginUserDto usuarioLoginDto)
         {
 
-            
+
             var rptaservice = await this.usService.Login(usuarioLoginDto);
             //var respuestaLogin = await _usRepo.Login(usuarioLoginDto);
 
@@ -111,12 +112,76 @@ namespace ApiMovies.Controllers
             //    _respuestaApi.IsSuccess = false;
             //    _respuestaApi.ErrorMessages.Add("El nombre de usuario o password son incorrectos");
             //    return BadRequest(_respuestaApi);
-            //}           
+            //}
 
             //_respuestaApi.StatusCode = HttpStatusCode.OK;
             //_respuestaApi.IsSuccess = true;
             //_respuestaApi.Result = respuestaLogin;
             return Ok(rptaservice);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("download-template")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult DownloadUserTemplate()
+        {
+            var columnNames = new[] { "NombreUsuario", "Nombre" };
+            var fileBytes = _excelService.GenerateTemplate<ImportUserDto>(columnNames);
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "users_template.xlsx");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost("bulk-import")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> BulkImportUsers(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("El archivo no puede estar vacío");
+
+            try
+            {
+                var users = _excelService.ImportFromExcel<ImportUserDto>(file.OpenReadStream(), file.FileName);
+                int successCount = 0;
+                var errors = new List<string>();
+
+                foreach (var userImport in users)
+                {
+                    try
+                    {
+                        var registroDto = new UsuarioRegistroDto
+                        {
+                            NombreUsuario = userImport.NombreUsuario,
+                            Nombre = userImport.Nombre,
+                            Password = "DefaultPassword123!" // Usuarios deben cambiar al primer login
+                        };
+
+                        await this.usService.Registro(registroDto);
+                        successCount++;
+                    }
+                    catch (Exception ex)
+                    {
+                        errors.Add($"Error importando usuario '{userImport.NombreUsuario}': {ex.Message}");
+                    }
+                }
+
+                var response = new
+                {
+                    message = "Importación completada",
+                    successCount = successCount,
+                    totalCount = users.Count,
+                    errors = errors
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
         }
 
     }

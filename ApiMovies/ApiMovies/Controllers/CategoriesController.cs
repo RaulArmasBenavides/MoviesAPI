@@ -1,4 +1,5 @@
 ﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Application.Dtos.Import;
 using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using AutoMapper;
@@ -14,11 +15,13 @@ namespace ApiMovies.Controllers
     {
         private readonly ICategoryService ctService;
         private readonly IMapper _mapper;
+        private readonly IExcelService _excelService;
 
-        public CategoriesController(ICategoryService mctService, IMapper mapper)
+        public CategoriesController(ICategoryService mctService, IMapper mapper, IExcelService excelService)
         {
             ctService = mctService;
             _mapper = mapper;
+            _excelService = excelService;
         }
 
         [AllowAnonymous]
@@ -113,7 +116,7 @@ namespace ApiMovies.Controllers
         //}
 
         //[Authorize(Roles = "admin")]
-        //[HttpDelete("{categoriaId:int}", Name = "BorrarCategoria")]      
+        //[HttpDelete("{categoriaId:int}", Name = "BorrarCategoria")]
         //[ProducesResponseType(StatusCodes.Status204NoContent)]
         //[ProducesResponseType(StatusCodes.Status403Forbidden)]
         //[ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -135,5 +138,68 @@ namespace ApiMovies.Controllers
         //    }
         //    return NoContent();
         //}
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("download-template")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult DownloadCategoryTemplate()
+        {
+            var columnNames = new[] { "Nombre" };
+            var fileBytes = _excelService.GenerateTemplate<ImportCategoryDto>(columnNames);
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "categories_template.xlsx");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost("bulk-import")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> BulkImportCategories(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("El archivo no puede estar vacío");
+
+            try
+            {
+                var categories = _excelService.ImportFromExcel<ImportCategoryDto>(file.OpenReadStream(), file.FileName);
+                int successCount = 0;
+                var errors = new List<string>();
+
+                foreach (var categoryImport in categories)
+                {
+                    try
+                    {
+                        var category = new Category
+                        {
+                            Nombre = categoryImport.Nombre,
+                            FechaCreacion = DateTime.Now
+                        };
+
+                        await this.ctService.CreateCategoryAsync(category);
+                        successCount++;
+                    }
+                    catch (Exception ex)
+                    {
+                        errors.Add($"Error importando '{categoryImport.Nombre}': {ex.Message}");
+                    }
+                }
+
+                var response = new
+                {
+                    message = "Importación completada",
+                    successCount = successCount,
+                    totalCount = categories.Count,
+                    errors = errors
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
     }
 }

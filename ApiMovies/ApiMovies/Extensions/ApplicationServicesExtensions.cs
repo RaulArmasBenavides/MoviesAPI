@@ -19,6 +19,7 @@ namespace ApiMovies.Extensions
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategorieService>();
+            services.AddScoped<IExcelService, ExcelService>();
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();

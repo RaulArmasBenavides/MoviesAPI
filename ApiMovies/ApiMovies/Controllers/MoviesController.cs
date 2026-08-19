@@ -1,4 +1,5 @@
 ﻿using ApiMovies.Application.Dtos;
+using ApiMovies.Application.Dtos.Import;
 using ApiMovies.Application.Interfaces;
 using ApiMovies.Core.Entities;
 using ApiMovies.CrossCutting;
@@ -16,15 +17,18 @@ namespace ApiMovies.Controllers
         private readonly IWebHostEnvironment _environment;
         private readonly IMapper _mapper;
         private readonly Serilog.ILogger _logger;
-        public MoviesController(IMovieService pelServ, 
-                                   IMapper mapper, 
+        private readonly IExcelService _excelService;
+        public MoviesController(IMovieService pelServ,
+                                   IMapper mapper,
                                    Serilog.ILogger logger,
-                                   IWebHostEnvironment environment)
+                                   IWebHostEnvironment environment,
+                                   IExcelService excelService)
         {
             this.movieService = pelServ;
             _mapper = mapper;
             _logger = logger;
             _environment = environment;
+            _excelService = excelService;
         }
 
 
@@ -152,6 +156,79 @@ namespace ApiMovies.Controllers
                return StatusCode(500, ModelState);
             }
             return NoContent();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("download-template")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult DownloadMovieTemplate()
+        {
+            var columnNames = new[] { "Nombre", "Descripcion", "Estado", "Clasificacion", "categoriaId" };
+            var fileBytes = _excelService.GenerateTemplate<ImportMovieDto>(columnNames);
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "movies_template.xlsx");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost("bulk-import")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> BulkImportMovies(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("El archivo no puede estar vacío");
+
+            try
+            {
+                var movies = _excelService.ImportFromExcel<ImportMovieDto>(file.OpenReadStream(), file.FileName);
+                int successCount = 0;
+                var errors = new List<string>();
+
+                foreach (var movieImport in movies)
+                {
+                    try
+                    {
+                        if (!Enum.TryParse<Movie.TipoClasificacion>(movieImport.Clasificacion, out var clasificacion))
+                        {
+                            errors.Add($"Error en película '{movieImport.Nombre}': Clasificación inválida");
+                            continue;
+                        }
+
+                        var movie = new Movie
+                        {
+                            Nombre = movieImport.Nombre,
+                            Descripcion = movieImport.Descripcion,
+                            Estado = movieImport.Estado,
+                            Clasificacion = clasificacion,
+                            categoriaId = movieImport.categoriaId,
+                            FechaCreacion = DateTime.Now
+                        };
+
+                        await this.movieService.CreateMovieAsync(movie);
+                        successCount++;
+                    }
+                    catch (Exception ex)
+                    {
+                        errors.Add($"Error importando '{movieImport.Nombre}': {ex.Message}");
+                    }
+                }
+
+                var response = new
+                {
+                    message = "Importación completada",
+                    successCount = successCount,
+                    totalCount = movies.Count,
+                    errors = errors
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
         }
 
         //[AllowAnonymous]
