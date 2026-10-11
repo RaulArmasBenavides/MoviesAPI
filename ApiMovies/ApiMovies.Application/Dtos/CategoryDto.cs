@@ -9,5 +9,13 @@ namespace ApiMovies.Application.Dtos
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [MaxLength(60, ErrorMessage = "El número máximo de caracteres es de 100!")]
         public string Nombre { get; set; }        
+
+        public DateTime CreatedAt { get; set; }
+
+        public string? CreatedBy { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
+
+        public string? UpdatedBy { get; set; }
     }
 }

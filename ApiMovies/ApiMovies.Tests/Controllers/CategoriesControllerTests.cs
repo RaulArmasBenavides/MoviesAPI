@@ -14,13 +14,15 @@ namespace ApiMovies.Tests.Controllers
     {
         private readonly Mock<ICategoryService> _mockCategoryService;
         private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<IExcelService> _mockExcelService;
         private readonly CategoriesController _controller;
 
         public CategoriesControllerTests()
         {
             _mockCategoryService = new Mock<ICategoryService>();
             _mockMapper = new Mock<IMapper>();
-            _controller = new CategoriesController(_mockCategoryService.Object, _mockMapper.Object);
+            _mockExcelService = new Mock<IExcelService>();
+            _controller = new CategoriesController(_mockCategoryService.Object, _mockMapper.Object, _mockExcelService.Object);
         }
 
         [Fact]

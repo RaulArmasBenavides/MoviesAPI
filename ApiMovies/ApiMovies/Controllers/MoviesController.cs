@@ -202,8 +202,7 @@ namespace ApiMovies.Controllers
                             Descripcion = movieImport.Descripcion,
                             Estado = movieImport.Estado,
                             Clasificacion = clasificacion,
-                            categoriaId = movieImport.categoriaId,
-                            FechaCreacion = DateTime.Now
+                            categoriaId = movieImport.categoriaId
                         };
 
                         await this.movieService.CreateMovieAsync(movie);

@@ -1,5 +1,5 @@
 # ---- Build ----
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # Copia csproj a sus carpetas correctas
@@ -11,7 +11,7 @@ COPY ["ApiMovies.CrossCutting/ApiMovies.CrossCutting.csproj", "ApiMovies.CrossCu
 # Restaura SOLO el proyecto web (evitas el .dcproj)
 RUN dotnet restore "ApiMovies/ApiMovies.csproj"
 
-# Copia el resto del c�digo
+# Copia el resto del código
 COPY . .
 
 # Limpia bin/obj que vengan del host (evita errores raros)
@@ -21,8 +21,9 @@ RUN find . -type d \( -name bin -o -name obj \) -prune -exec rm -rf {} +
 RUN dotnet publish "ApiMovies/ApiMovies.csproj" -c Release -o /app/out /p:UseAppHost=false
 
 # ---- Runtime ----
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 COPY --from=build /app/out .
-EXPOSE 80
+# ASP.NET Core 8+ escucha en 8080 por defecto en las imágenes oficiales
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "ApiMovies.dll"]

@@ -1,10 +1,12 @@
 ﻿using ApiMovies.Application.Dtos;
 using ApiMovies.Core.Entities;
+using ApiMovies.Core.Interfaces;
  
 using ApiMovies.Extensions;
 using ApiMovies.Infrastructure;
 using ApiMovies.Infrastructure.Data;
 using ApiMovies.Middlewares;
+using ApiMovies.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
@@ -41,6 +43,7 @@ public class Program
         builder.Services.AddSwaggerDocumentation();
         builder.Services.ConfigureCors();
         builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         var app = builder.Build();
         // Configure the HTTP request pipeline.

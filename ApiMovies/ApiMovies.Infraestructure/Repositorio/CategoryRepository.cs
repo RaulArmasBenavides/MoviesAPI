@@ -16,7 +16,6 @@ namespace ApiMovies.Repositorio
 
         public bool ActualizarCategoria(Category categoria)
         {
-            categoria.FechaCreacion = DateTime.Now;
             _bd.Categoria.Update(categoria);
             return Guardar();
         }
@@ -29,7 +28,6 @@ namespace ApiMovies.Repositorio
 
         public bool CrearCategoria(Category categoria)
         {
-            categoria.FechaCreacion = DateTime.Now;
             _bd.Categoria.Add(categoria);
             return Guardar();
         }

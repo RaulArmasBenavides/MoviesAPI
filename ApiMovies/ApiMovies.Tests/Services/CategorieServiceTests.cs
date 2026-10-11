@@ -34,9 +34,9 @@ namespace ApiMovies.Tests.Services
             // Arrange
             var categorias = new List<Category>
             {
-                new Category { Id = 1, Nombre = "Acción", FechaCreacion = DateTime.Now },
-                new Category { Id = 2, Nombre = "Drama", FechaCreacion = DateTime.Now },
-                new Category { Id = 3, Nombre = "Comedia de Acción", FechaCreacion = DateTime.Now }
+                new Category { Id = 1, Nombre = "Acción", CreatedAt = DateTime.UtcNow },
+                new Category { Id = 2, Nombre = "Drama", CreatedAt = DateTime.UtcNow },
+                new Category { Id = 3, Nombre = "Comedia de Acción", CreatedAt = DateTime.UtcNow }
             };
 
             var filter = new CategoryFilterDto
@@ -71,9 +71,9 @@ namespace ApiMovies.Tests.Services
             var now = DateTime.Now;
             var categorias = new List<Category>
             {
-                new Category { Id = 1, Nombre = "Acción", FechaCreacion = now.AddDays(-2) },
-                new Category { Id = 2, Nombre = "Drama", FechaCreacion = now.AddDays(-1) },
-                new Category { Id = 3, Nombre = "Comedia", FechaCreacion = now }
+                new Category { Id = 1, Nombre = "Acción", CreatedAt = now.AddDays(-2) },
+                new Category { Id = 2, Nombre = "Drama", CreatedAt = now.AddDays(-1) },
+                new Category { Id = 3, Nombre = "Comedia", CreatedAt = now }
             };
 
             var filter = new CategoryFilterDto
@@ -109,7 +109,7 @@ namespace ApiMovies.Tests.Services
             var categorias = new List<Category>();
             for (int i = 1; i <= 25; i++)
             {
-                categorias.Add(new Category { Id = i, Nombre = $"Categoría {i}", FechaCreacion = DateTime.Now });
+                categorias.Add(new Category { Id = i, Nombre = $"Categoría {i}", CreatedAt = DateTime.UtcNow });
             }
 
             var filter = new CategoryFilterDto

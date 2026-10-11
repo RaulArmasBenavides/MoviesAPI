@@ -139,7 +139,7 @@ namespace ApiMovies.Application.Services
 
             moviesList = filter.OrderBy?.ToLower() switch
             {
-                "date" => moviesList.OrderByDescending(m => m.FechaCreacion).ToList(),
+                "date" => moviesList.OrderByDescending(m => m.CreatedAt).ToList(),
                 "name" or _ => moviesList.OrderBy(m => m.Nombre).ToList()
             };
 

@@ -28,7 +28,6 @@ namespace ApiMovies.Repositorio
 
         public bool CrearPelicula(Movie pelicula)
         {
-            pelicula.FechaCreacion = DateTime.Now;
             bd.Pelicula.Add(pelicula);
             return Save();
         }

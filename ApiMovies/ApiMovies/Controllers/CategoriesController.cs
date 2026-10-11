@@ -173,8 +173,7 @@ namespace ApiMovies.Controllers
                     {
                         var category = new Category
                         {
-                            Nombre = categoryImport.Nombre,
-                            FechaCreacion = DateTime.Now
+                            Nombre = categoryImport.Nombre
                         };
 
                         await this.ctService.CreateCategoryAsync(category);

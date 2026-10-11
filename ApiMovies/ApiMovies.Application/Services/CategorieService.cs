@@ -68,7 +68,7 @@ namespace ApiMovies.Application.Services
 
             categoriasList = filter.OrderBy?.ToLower() switch
             {
-                "date" => categoriasList.OrderByDescending(c => c.FechaCreacion).ToList(),
+                "date" => categoriasList.OrderByDescending(c => c.CreatedAt).ToList(),
                 "name" or _ => categoriasList.OrderBy(c => c.Nombre).ToList()
             };
 

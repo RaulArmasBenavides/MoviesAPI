@@ -33,9 +33,9 @@ namespace ApiMovies.Tests.Services
             // Arrange
             var movies = new List<Movie>
             {
-                new Movie { Id = 1, Nombre = "Avatar", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, FechaCreacion = DateTime.Now },
-                new Movie { Id = 2, Nombre = "Titanic", Descripcion = "Drama", Estado = "Activa", categoriaId = 2, Clasificacion = Movie.TipoClasificacion.Dieciseis, FechaCreacion = DateTime.Now },
-                new Movie { Id = 3, Nombre = "Avatar 2", Descripcion = "Sci-Fi Sequel", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, FechaCreacion = DateTime.Now }
+                new Movie { Id = 1, Nombre = "Avatar", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, CreatedAt = DateTime.UtcNow },
+                new Movie { Id = 2, Nombre = "Titanic", Descripcion = "Drama", Estado = "Activa", categoriaId = 2, Clasificacion = Movie.TipoClasificacion.Dieciseis, CreatedAt = DateTime.UtcNow },
+                new Movie { Id = 3, Nombre = "Avatar 2", Descripcion = "Sci-Fi Sequel", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, CreatedAt = DateTime.UtcNow }
             };
 
             var filter = new MovieFilterDto
@@ -68,8 +68,8 @@ namespace ApiMovies.Tests.Services
             // Arrange
             var movies = new List<Movie>
             {
-                new Movie { Id = 1, Nombre = "Avatar", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, FechaCreacion = DateTime.Now },
-                new Movie { Id = 2, Nombre = "Titanic", Descripcion = "Drama", Estado = "Activa", categoriaId = 2, Clasificacion = Movie.TipoClasificacion.Dieciseis, FechaCreacion = DateTime.Now },
+                new Movie { Id = 1, Nombre = "Avatar", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, CreatedAt = DateTime.UtcNow },
+                new Movie { Id = 2, Nombre = "Titanic", Descripcion = "Drama", Estado = "Activa", categoriaId = 2, Clasificacion = Movie.TipoClasificacion.Dieciseis, CreatedAt = DateTime.UtcNow },
             };
 
             var filter = new MovieFilterDto
@@ -102,9 +102,9 @@ namespace ApiMovies.Tests.Services
             // Arrange
             var movies = new List<Movie>
             {
-                new Movie { Id = 1, Nombre = "Avatar", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, FechaCreacion = DateTime.Now },
-                new Movie { Id = 2, Nombre = "Titanic", Descripcion = "Drama", Estado = "Activa", categoriaId = 2, Clasificacion = Movie.TipoClasificacion.Dieciseis, FechaCreacion = DateTime.Now },
-                new Movie { Id = 3, Nombre = "The Martian", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Trece, FechaCreacion = DateTime.Now }
+                new Movie { Id = 1, Nombre = "Avatar", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, CreatedAt = DateTime.UtcNow },
+                new Movie { Id = 2, Nombre = "Titanic", Descripcion = "Drama", Estado = "Activa", categoriaId = 2, Clasificacion = Movie.TipoClasificacion.Dieciseis, CreatedAt = DateTime.UtcNow },
+                new Movie { Id = 3, Nombre = "The Martian", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Trece, CreatedAt = DateTime.UtcNow }
             };
 
             var filter = new MovieFilterDto
@@ -138,9 +138,9 @@ namespace ApiMovies.Tests.Services
             var now = DateTime.Now;
             var movies = new List<Movie>
             {
-                new Movie { Id = 1, Nombre = "Old Movie", Descripcion = "Old", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Siete, FechaCreacion = now.AddDays(-10) },
-                new Movie { Id = 2, Nombre = "Recent Movie", Descripcion = "Recent", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Siete, FechaCreacion = now },
-                new Movie { Id = 3, Nombre = "Middle Movie", Descripcion = "Middle", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Siete, FechaCreacion = now.AddDays(-5) }
+                new Movie { Id = 1, Nombre = "Old Movie", Descripcion = "Old", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Siete, CreatedAt = now.AddDays(-10) },
+                new Movie { Id = 2, Nombre = "Recent Movie", Descripcion = "Recent", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Siete, CreatedAt = now },
+                new Movie { Id = 3, Nombre = "Middle Movie", Descripcion = "Middle", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Siete, CreatedAt = now.AddDays(-5) }
             };
 
             var filter = new MovieFilterDto
@@ -174,9 +174,9 @@ namespace ApiMovies.Tests.Services
             // Arrange
             var movies = new List<Movie>
             {
-                new Movie { Id = 1, Nombre = "Avatar 1", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, FechaCreacion = DateTime.Now.AddDays(-5) },
-                new Movie { Id = 2, Nombre = "Avatar 2", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, FechaCreacion = DateTime.Now },
-                new Movie { Id = 3, Nombre = "Titanic", Descripcion = "Drama", Estado = "Activa", categoriaId = 2, Clasificacion = Movie.TipoClasificacion.Dieciocho, FechaCreacion = DateTime.Now }
+                new Movie { Id = 1, Nombre = "Avatar 1", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, CreatedAt = DateTime.UtcNow.AddDays(-5) },
+                new Movie { Id = 2, Nombre = "Avatar 2", Descripcion = "Sci-Fi", Estado = "Activa", categoriaId = 1, Clasificacion = Movie.TipoClasificacion.Dieciocho, CreatedAt = DateTime.UtcNow },
+                new Movie { Id = 3, Nombre = "Titanic", Descripcion = "Drama", Estado = "Activa", categoriaId = 2, Clasificacion = Movie.TipoClasificacion.Dieciocho, CreatedAt = DateTime.UtcNow }
             };
 
             var filter = new MovieFilterDto

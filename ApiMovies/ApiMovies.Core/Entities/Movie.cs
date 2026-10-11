@@ -2,8 +2,7 @@
 
 namespace ApiMovies.Core.Entities
 {
-    public class Movie
-
+    public class Movie : AuditableEntity
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -17,7 +16,6 @@ namespace ApiMovies.Core.Entities
         public enum TipoClasificacion { Siete, Trece, Dieciseis, Dieciocho }
 
         public TipoClasificacion Clasificacion { get; set; }
-        public DateTime FechaCreacion { get; set; }
 
         [ForeignKey("categoriaId")]
         public int categoriaId { get; set; }

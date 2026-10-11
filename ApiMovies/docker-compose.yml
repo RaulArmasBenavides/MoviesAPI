@@ -5,9 +5,10 @@ services:
   movies:
     image: ${DOCKER_REGISTRY-}movies
     build:
-      context: .        
+      context: .
       dockerfile: ApiMovies/Dockerfile
     ports:
-      - "8000:80"
+      - "8000:8080"
     environment:
-      ConnectionStrings__ConexionSQL: "Server=host.docker.internal,1433;Database=ApiMoviesNet7;User Id=sa;Password=sasasa;Encrypt=False"
+      # La contraseña se toma de la variable de entorno MOVIES_DB_PASSWORD (archivo .env o shell).
+      ConnectionStrings__ConexionSQL: "Server=host.docker.internal,1433;Database=ApiMoviesNet7;User Id=sa;Password=${MOVIES_DB_PASSWORD:?Define MOVIES_DB_PASSWORD};Encrypt=False"
